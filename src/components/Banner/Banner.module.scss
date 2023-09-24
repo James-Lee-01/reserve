@@ -1,0 +1,38 @@
+.container {
+  // outline: 1px solid red;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+
+  .imgWrapper {
+    // outline: 1px solid green;
+    height: 150px;
+    // width: fit-content;
+    white-space: nowrap;
+
+
+    .imgHuman {
+      // outline: 1px solid black;
+      margin: 16px;
+    }
+  }
+}
+
+
+////RWD
+
+// @media (max-width: 768px) {
+//   .imgWrapper .imgHuman:nth-child(n + 5) {
+//     display: none;
+//     /* 頁面寬度小於 768px 時，隱藏第四張以後的人物圖片 */
+//   }
+// }
+
+// @media (max-width: 480px) {
+//   .imgWrapper .imgHuman:nth-child(n + 3) {
+//     display: none;
+//     /* 頁面寬度小於 480px 時，隱藏第三張以後的人物圖片 */
+//   }
+// }

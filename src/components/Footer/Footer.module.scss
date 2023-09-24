@@ -1,0 +1,46 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #000000;
+  padding: 100px;
+  gap: 100px;
+
+  .tagWrapper {
+    .tagBlock {
+      display: flex;
+      
+
+      & > ul {
+        color: #FF5A5F;
+        font-family: "Libre Baskerville", serif;
+        line-height: 1.5;
+        padding: 0 50px;
+        & > h3 {
+          margin: 0 0 16px 0;
+        }
+        & > li {
+          color: #bfd7ea;
+          list-style-type: none;
+          margin-bottom: 16px;
+        }
+      }
+      
+    }
+  }
+
+  .iconContainer {
+    .iconWrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .iconFa {
+        margin: 16px;
+      }
+    }
+    .copyright {
+      color: #bfd7ea;
+    }
+  }
+}
