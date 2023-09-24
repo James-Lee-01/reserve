@@ -1,0 +1,108 @@
+.container {
+  position: relative;
+
+  & .loginContainer,
+  & .signUpContainer {
+    width: 100%;
+    opacity: 0;
+    pointer-events: none;
+    /* 使元素不可點擊 */
+    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+  }
+
+  & .loginContainer {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+    /* 恢復點擊事件 */
+  }
+
+  & .signUpContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  &.signUpActive {
+    & .loginContainer {
+      opacity: 0;
+      transform: translateX(-20px);
+      pointer-events: none;
+      /* 使 loginContainer 不可點擊 */
+    }
+
+    & .signUpContainer {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+      /* 恢復 signUpContainer 的點擊事件 */
+    }
+  }
+}
+
+.loginContainer, .signUpContainer {
+  // outline: 1px solid red;
+  width: 100vw;
+  height: 600px;
+  display: flex;
+  // flex: 1 0 0px;
+  justify-content: center;
+  align-content: center;
+  padding: 0 auto;
+
+  .formWrapper {
+    // outline: 1px solid green;
+    // width: 50%;
+    padding: 100px;
+    background-color: #FD878D;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    Input {
+      margin-bottom: 24px;
+    }
+
+    .submitBtn {
+      height: 50px;
+      color: #ffffff;
+      background-color: #333333;
+      border-radius: 8px;
+      border: none;
+      font-size: 24px;
+      font-weight: 500;
+    }
+  }
+
+  .containWrapper {
+    padding: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .switchBtn {
+        height: 50px;
+        width: 200px;
+        margin: 16px;
+        color: #ffffff;
+        background-color: #FD878D;
+        border-radius: 8px;
+        border: none;
+        font-size: 24px;
+        font-weight: 500;
+      }
+  }
+
+  .title {
+    font-weight: 00;
+    font-family: "Goblin One", sans-serif;
+    // font-family: "Libre Baskerville", "Libre Baskerville Placeholder", serif;
+    color: #333333;
+    font-size: 36px;
+    letter-spacing: 0em;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+}
