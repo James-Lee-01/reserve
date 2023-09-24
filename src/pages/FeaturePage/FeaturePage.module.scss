@@ -1,0 +1,98 @@
+.container {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: 100%;
+  height: min-content;
+  /* 615px */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 100px 100px 100px 100px;
+  background-color: #ffffff;
+  overflow: hidden;
+  position: relative;
+  align-content: center;
+  flex-wrap: nowrap;
+  gap: 0;
+  border-radius: 0px 0px 0px 0px;
+
+  .contentWrapper {
+  flex-shrink: 0;
+  width: 100%;
+  height: min-content;
+  /* 415px */
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  max-width: 1000px;
+  overflow: hidden;
+  z-index: 1;
+  position: relative;
+  padding: 0px 0px 0px 0px;
+  align-content: flex-start;
+  flex-wrap: nowrap;
+  gap: 40;
+  border-radius: 0px 0px 0px 0px;
+
+  .textWrapper {
+      flex-shrink: 0;
+      flex: 1 0 0px;
+      width: 1px;
+      height: min-content;
+      /* 415px */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      max-width: 600px;
+      overflow: hidden;
+      position: relative;
+      padding: 0px 0px 0px 0px;
+      align-content: flex-start;
+      flex-wrap: nowrap;
+      gap: 40;
+      border-radius: 0px 0px 0px 0px;
+
+      .title {
+          flex-shrink: 0;
+          width: 100%;
+          height: auto;
+          /* 115px */
+          white-space: pre-wrap;
+          word-wrap: break-word;
+          word-break: break-word;
+          overflow: visible;
+          position: relative;
+          font-weight: 400;
+          font-style: normal;
+          font-family: "Goblin One", sans-serif;
+          color: #000000;
+          font-size: 32px;
+          letter-spacing: 0em;
+          line-height: 1.2;
+          text-align: left;
+        }
+        .info {
+          flex-shrink: 0;
+          width: 100%;
+          height: auto;
+          /* 60px */
+          white-space: pre-wrap;
+          word-wrap: break-word;
+          word-break: break-word;
+          overflow: visible;
+          position: relative;
+          font-weight: 400;
+          font-style: normal;
+          font-family: "Libre Baskerville", "Libre Baskerville Placeholder", serif;
+          color: #000000;
+          font-size: 22px;
+          letter-spacing: -0.025em;
+          line-height: 1.5;
+          text-align: left;
+        }
+    }
+  }
+}
