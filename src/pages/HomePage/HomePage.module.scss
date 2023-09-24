@@ -1,0 +1,50 @@
+.homeContainer {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: 100%;
+  height: min-content;
+  /* 800px */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 100px 100px 100px;
+  background-color: #c81d25;
+  min-height: 800px;
+  overflow: hidden;
+  position: relative;
+  align-content: center;
+  flex-wrap: nowrap;
+  gap: 50;
+  border-radius: 0px 0px 0px 0px;
+
+  .homeTitle {
+      height: auto;
+      /* 159px */
+      white-space: pre;
+      max-width: 1000px;
+      position: relative;
+      font-weight: 400;
+      font-style: normal;
+      font-family: "Goblin One", sans-serif;
+      color: #ffffff;
+      font-size: 130px;
+      letter-spacing: 0em;
+      text-transform: uppercase;
+      line-height: 1.1;
+      text-align: center;
+    }
+
+    .iconWrapper {
+      // outline: 1px solid black;
+      position: absolute;
+      left: 50px;
+      right: 50px;
+      top: 150px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+    }
+}
+
