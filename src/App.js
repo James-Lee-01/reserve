@@ -1,3 +1,5 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import HomePage from './pages/HomePage/HomePage'
@@ -6,17 +8,29 @@ import FeaturePage from './pages/FeaturePage/FeaturePage';
 import LinkPage from './pages/LinkPage/LinkPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import FooterPage from './pages/FooterPage/FooterPage';
+import BrowsePage from './pages/BrowsePage/BrowsePage';
 
 function App() {
   return (
     <div className="App">
-      <Navbar/>
-      <HomePage/>
-      <WelcomePage/>
-      <FeaturePage/>
-      <LinkPage/>
-      <LoginPage/>
-      <FooterPage/>
+      <BrowserRouter>
+      <Routes>
+        <Route path='*' element={
+        <>
+          <Navbar/>
+          <HomePage/>
+          <WelcomePage/>
+          <FeaturePage/>
+          <LinkPage/>
+          <LoginPage/>
+          <FooterPage/>
+        </>
+        }/>
+        <Route path='browse/all' element={
+          <BrowsePage/>
+        }/>
+      </Routes>
+      </BrowserRouter>
     </div>
   );
 }
