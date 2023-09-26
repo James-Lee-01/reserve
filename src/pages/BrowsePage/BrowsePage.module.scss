@@ -1,0 +1,19 @@
+.container {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: 100%;
+  height: min-content;
+  /* 1139px */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 40px 100px 40px;
+  background-color: #ffffff;
+  overflow: hidden;
+  position: relative;
+  align-content: center;
+  flex-wrap: nowrap;
+  gap: 60;
+  border-radius: 0px 0px 0px 0px;
+}
