@@ -39,6 +39,9 @@
 
     h3 {
       margin: 8px 0;
+      &.cafeName {
+        color: #087E8B;
+      }
     }
     
     p {
@@ -56,7 +59,7 @@
     }
 
     .cafeCity {
-      outline: 1px solid green;
+      // outline: 1px solid green;
       padding: 0 8px;
       background-color: #087E8B;
       border-radius: 50px;
