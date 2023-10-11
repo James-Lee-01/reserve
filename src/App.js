@@ -9,6 +9,7 @@ import LinkPage from './pages/LinkPage/LinkPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import FooterPage from './pages/FooterPage/FooterPage';
 import BrowsePage from './pages/BrowsePage/BrowsePage';
+import SingleCafePage from './pages/SingleCafePage/SingleCafePage'
 
 function App() {
   return (
@@ -28,6 +29,9 @@ function App() {
         }/>
         <Route path='browse/all' element={
           <BrowsePage/>
+        }/>
+        <Route path='browse/single/cafe/:id' element={
+          <SingleCafePage/>
         }/>
       </Routes>
       </BrowserRouter>
