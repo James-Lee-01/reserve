@@ -1,6 +1,7 @@
 import styles from "./SingleCafePage.module.scss"
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
+import Carousel from "../../components/Carousel/Carousel";
 import cafe1 from "../../assets/images/cafe1.jpeg"
 
 
@@ -30,11 +31,19 @@ export default function BrowsePage() {
           </div>
           <div className={styles.cafeDescription}>
             About:
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat quam in maxime laborum fugit quisquam magnam doloribus, error labore iste. Hic explicabo minus iste modi reiciendis dolore cupiditate deleniti optio!</p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat
+              quam in maxime laborum fugit quisquam magnam doloribus, error
+              labore iste. Hic explicabo minus iste modi reiciendis dolore
+              cupiditate deleniti optio!
+            </p>
+          </div>
+          <div className={styles.btnGroup}>
+            
           </div>
         </div>
       </div>
-
+      <Carousel/>
       <Footer />
     </>
   );
