@@ -1,5 +1,5 @@
 import styles from "./SingleCafePage.module.scss"
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import Carousel from "../../components/Carousel/Carousel";
@@ -13,11 +13,15 @@ import cafe1 from "../../assets/images/cafe1.jpeg"
 // （該餐廳可訂位日期、時段、人數）
 export default function SingleCafePage() {
   const carouselRef = useRef(null)
+  const [showFavoriteIcon, setShowFavoriteIcon] = useState(false)
 
   const handleClick = () => {
     if (carouselRef.current) {
       carouselRef.current.scrollIntoView({ behavior: "smooth",});
     }
+  }
+  const handleFavorite = () => {
+    setShowFavoriteIcon(!showFavoriteIcon)
   }
 
   return (
@@ -48,12 +52,18 @@ export default function SingleCafePage() {
             </p>
           </div>
           <div className={styles.btnGroup}>
+            <Button
+              text='Favorite'
+              color='primary'
+              onClick={handleFavorite}
+              startIcon={showFavoriteIcon ? "favorite" : "unFavorite"}
+            />
             <Button text='Menu' color='primary' onClick={handleClick} />
             <Button text='Book Now' color='secondary' />
           </div>
         </div>
       </div>
-      <Carousel ref={carouselRef}/>
+      <Carousel ref={carouselRef} />
       <Footer />
     </>
   );
