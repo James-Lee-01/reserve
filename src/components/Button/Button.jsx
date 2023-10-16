@@ -16,7 +16,17 @@ const theme = createTheme({
 });
 
 
-export default function Btn({ text, color, href, onClick, startIcon, endIcon }) {
+export default function Btn({ text, color, href, onClick, iconType, endIcon }) {
+  const renderIcon = (type) => {
+    switch (type) {
+      case "favorite":
+        return <FavoriteIcon />;
+      case "unFavorite":
+        return <FavoriteBorderIcon />;
+      default:
+        return null;
+    }
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -25,9 +35,7 @@ export default function Btn({ text, color, href, onClick, startIcon, endIcon }) 
         color={color}
         href={href}
         onClick={onClick}
-        startIcon={
-          startIcon === "favorite" ? <FavoriteIcon /> : <FavoriteBorderIcon />
-        }
+        startIcon={renderIcon(iconType)}
         endIcon={endIcon}
       >
         {text}

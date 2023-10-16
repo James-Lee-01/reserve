@@ -56,7 +56,7 @@ export default function SingleCafePage() {
               text='Favorite'
               color='primary'
               onClick={handleFavorite}
-              startIcon={showFavoriteIcon ? "favorite" : "unFavorite"}
+              iconType={showFavoriteIcon ? "favorite" : "unFavorite"}
             />
             <Button text='Menu' color='primary' onClick={handleClick} />
             <Button text='Book Now' color='secondary' />
