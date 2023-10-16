@@ -1,5 +1,6 @@
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { forwardRef } from 'react';
 // import { useEffect, useRef } from 'react';
 // import { register } from 'swiper/element/bundle'
 import 'swiper/css'
@@ -12,7 +13,7 @@ import image from '../../assets/images/cafe1.jpeg'
 
 // register();
 
-const Carousel = () => {
+const Carousel = forwardRef((props, ref) => {
 
   const params = {
     modules: [Pagination, Navigation],
@@ -32,11 +33,21 @@ const Carousel = () => {
     },
   };
 
+  const slides = 
+    Array(5).fill().map((_,index) => {return (
+      <SwiperSlide key={index} className={styles.slide}>
+        <img src={image} alt={index} />
+        <p>{index+1}</p>
+      </SwiperSlide>
+    );})
+  
+
   return (
-    <div className={styles.carouselContainer}>
+    <div className={styles.carouselContainer} ref={ref}>
       <Swiper className={styles.swiper} {...params}>
         <div className='swiper-wrapper'>
-          <SwiperSlide className={styles.slide}>
+          {slides}
+          {/* <SwiperSlide className={styles.slide}>
             <img src={image} alt='Image1' />
             <p>1</p>
           </SwiperSlide>
@@ -55,12 +66,11 @@ const Carousel = () => {
           <SwiperSlide className={styles.slide}>
             <img src={image} alt='Image5' />
             <p>5</p>
-          </SwiperSlide>
+          </SwiperSlide> */}
         </div>
       </Swiper>
     </div>
   );
-  
-}
+})
 
 export default Carousel

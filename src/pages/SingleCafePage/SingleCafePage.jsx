@@ -1,7 +1,9 @@
 import styles from "./SingleCafePage.module.scss"
+import { useRef } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import Carousel from "../../components/Carousel/Carousel";
+import Button from "../../components/Button/Button"
 import cafe1 from "../../assets/images/cafe1.jpeg"
 
 
@@ -9,7 +11,14 @@ import cafe1 from "../../assets/images/cafe1.jpeg"
 // （加入收藏）
 // （移除收藏）
 // （該餐廳可訂位日期、時段、人數）
-export default function BrowsePage() {
+export default function SingleCafePage() {
+  const carouselRef = useRef(null)
+
+  const handleClick = () => {
+    if (carouselRef.current) {
+      carouselRef.current.scrollIntoView({ behavior: "smooth",});
+    }
+  }
 
   return (
     <>
@@ -39,11 +48,12 @@ export default function BrowsePage() {
             </p>
           </div>
           <div className={styles.btnGroup}>
-            
+            <Button text='Menu' color='primary' onClick={handleClick} />
+            <Button text='Book Now' color='secondary' />
           </div>
         </div>
       </div>
-      <Carousel/>
+      <Carousel ref={carouselRef}/>
       <Footer />
     </>
   );
