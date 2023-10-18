@@ -1,5 +1,7 @@
 import styles from './Booking.module.scss'
 import dayjs from 'dayjs'
+import SelectTime from '../Select/SelectTime/SelectTime'
+import SelectPeople from '../Select/SelectPeople/SelectPeople'
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -91,6 +93,14 @@ const themeDatePicker = createTheme({
         },
       },
     },
+    MuiMenu: {
+      styleOverrides: {
+        paper: {
+          backgroundColor: "#2F2F2F",
+          color: "white",
+        },
+      },
+    },
   },
 });
 
@@ -108,22 +118,40 @@ export default function Booking () {
     <ThemeProvider theme={themeDatePicker}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <div className={styles.container}>
-          <DatePicker
-            label='Pick a date'
-            value={value}
-            minDate={tomorrow}
-            maxDate={nextWeek}
-            onChange={(newValue) => setValue(newValue)}
-            slotProps={{
-              value: { color: "primary" },
-              openPickerButton: { color: "primary" },
-              textField: {
-                variant: "filled",
-                // focused: true,
-                color: "primary",
-              },
-            }}
-          />
+          <div className={styles.textGroup}>
+            <h3 className={styles.textTitle}>Book Now</h3>
+            <p className={styles.textContent}>
+              {`Coffee & Comfort, all in one place.
+
+              Book Your Perfect Spot Right Here!`}
+            </p>
+          </div>
+          <div className={styles.inputContainer}>
+            <div className={styles.inputGroup}>
+              <div className={styles.timeWrapper}>
+                <DatePicker
+                  className={styles.datePicker}
+                  label='Pick a date'
+                  value={value}
+                  minDate={tomorrow}
+                  maxDate={nextWeek}
+                  onChange={(newValue) => setValue(newValue)}
+                  slotProps={{
+                    value: { color: "primary" },
+                    openPickerButton: { color: "primary" },
+                    textField: {
+                      variant: "filled",
+                      // focused: true,
+                      color: "primary",
+                    },
+                  }}
+                />
+                <SelectTime className={styles.timePicker} />
+                <SelectPeople className={styles.peoplePicker} />
+              </div>
+              <div className={styles.infoWrapper}></div>
+            </div>
+          </div>
         </div>
       </LocalizationProvider>
     </ThemeProvider>
