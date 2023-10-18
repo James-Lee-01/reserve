@@ -1,15 +1,15 @@
 import styles from "./SingleCafePage.module.scss"
 import { useRef, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
-import Footer from "../../components/Footer/Footer";
 import Carousel from "../../components/Carousel/Carousel";
+import Booking from "../../components/Booking/Booking";
+import Footer from "../../components/Footer/Footer";
 import Button from "../../components/Button/Button"
 import cafe1 from "../../assets/images/cafe1.jpeg"
 
 
 // （照片、店名、地區標籤、地圖資訊、地址、電話、詳細介紹、菜單照片）
-// （加入收藏）
-// （移除收藏）
+// （加入收藏、移除收藏）
 // （該餐廳可訂位日期、時段、人數）
 export default function SingleCafePage() {
   const carouselRef = useRef(null)
@@ -64,6 +64,7 @@ export default function SingleCafePage() {
         </div>
       </div>
       <Carousel ref={carouselRef} />
+      <Booking/>
       <Footer />
     </>
   );
