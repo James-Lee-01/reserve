@@ -6,28 +6,33 @@ import Select from "@mui/material/Select";
 import { useState } from "react";
 
 export default function BasicSelect() {
-  const [people, setPeople] = useState("");
+  const [table, setTable] = useState("");
 
   const handleChange = (event) => {
-    setPeople(event.target.value);
+    setTable(event.target.value);
   };
 
-  const selectPerson = Array(8).fill().map((_, index) => {
-    return (<MenuItem key={index} value={index + 1}>{index + 1}</MenuItem>);
-  })
+  const selectTable = [1, 2, 4, 6]
+    .map((value, index) => {
+      return (
+        <MenuItem key={index} value={value}>
+          {value}
+        </MenuItem>
+      );
+    });
 
   return (
     <FormControl variant='filled' sx={{ minWidth: 120 }}>
-      <InputLabel id='person-select-label'>People</InputLabel>
+      <InputLabel id='table-select-label'>Table</InputLabel>
       <Select
-        labelId='person-select-label'
-        id='person-select'
-        value={people}
-        label='Person'
+        labelId='table-select-label'
+        id='table-select'
+        value={table}
+        label='Table'
         autoWidth
         onChange={handleChange}
       >
-        {selectPerson}
+        {selectTable}
       </Select>
     </FormControl>
   );
