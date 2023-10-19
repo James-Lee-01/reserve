@@ -23,9 +23,9 @@ export default function BasicSelect() {
         autoWidth
         onChange={handleChange}
       >
-        <MenuItem value={"Male"}>Mr.</MenuItem>
-        <MenuItem value={"Female"}>Ms.</MenuItem>
-        <MenuItem value={"Other"}>--</MenuItem>
+        <MenuItem value={"Mr."}>Mr.</MenuItem>
+        <MenuItem value={"Ms."}>Ms.</MenuItem>
+        <MenuItem value={"Other"}>Other</MenuItem>
       </Select>
     </FormControl>
   );
