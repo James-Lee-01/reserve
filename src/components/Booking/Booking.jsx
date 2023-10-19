@@ -2,6 +2,9 @@ import styles from './Booking.module.scss'
 import dayjs from 'dayjs'
 import SelectTime from '../Select/SelectTime/SelectTime'
 import SelectPeople from '../Select/SelectPeople/SelectPeople'
+import SelectGender from '../Select/SelectGender/SelectGender'
+// import TextField from '../TextField/TextField'
+import { TextField } from '@mui/material'
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -109,9 +112,20 @@ const themeDatePicker = createTheme({
 
 export default function Booking () {
   const [value, setValue] = useState(null)
+  const [phone, setPhone] = useState('')
 
   const tomorrow = dayjs().add(1, "day");
   const nextWeek = dayjs().add(7, 'day')
+
+  const handleNumber = (event) => {
+    const val = event.target.value;
+
+    if (val.match(/[^0-9]/)) {
+      return event.preventDefault();
+    }
+
+    setPhone(val);
+  };
 
 
   return (
@@ -149,7 +163,21 @@ export default function Booking () {
                 <SelectTime className={styles.timePicker} />
                 <SelectPeople className={styles.peoplePicker} />
               </div>
-              <div className={styles.infoWrapper}></div>
+              <div className={styles.infoWrapper}>
+                <SelectGender />
+                <TextField label={"Name"} variant='filled' />
+              </div>
+              <div className={styles.phoneWrapper}>
+                <TextField
+                  label={"Phone Number"}
+                  variant='filled'
+                  inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                  value={phone}
+                  onChange={handleNumber}
+                />
+              </div>
+              <div className={styles.emailWrapper}></div>
+              <div className={styles.noteWrapper}></div>
             </div>
           </div>
         </div>

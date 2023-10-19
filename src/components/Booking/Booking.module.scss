@@ -40,11 +40,19 @@
       justify-content: center;
       align-items: center;
       margin: 20% 10%;
+      gap: 32px;
 
       .timeWrapper {
         width: 100%;
         display: flex;
-        justify-content: space-evenly;
+        justify-content: flex-start;
+        gap: 32px;
+      }
+
+      .infoWrapper {
+        width: 100%;
+        display: flex;
+        gap: 32px;
       }
     }
   }

@@ -13,20 +13,20 @@ export default function BasicSelect() {
   };
 
   return (
-      <FormControl variant='filled' sx={{ minWidth: 120 }} >
-        <InputLabel id='demo-simple-select-label'>Time</InputLabel>
-        <Select
-          labelId='demo-simple-select-label'
-          id='demo-simple-select'
-          value={time}
-          label='Time'
-          autoWidth
-          onChange={handleChange}
-        >
-          <MenuItem value={10}>10:00</MenuItem>
-          <MenuItem value={20}>11:00</MenuItem>
-          <MenuItem value={30}>12:00</MenuItem>
-        </Select>
-      </FormControl>
+    <FormControl variant='filled' sx={{ minWidth: 120 }}>
+      <InputLabel id='time-select-label'>Time</InputLabel>
+      <Select
+        labelId='time-select-label'
+        id='time-select'
+        value={time}
+        label='Time'
+        autoWidth
+        onChange={handleChange}
+      >
+        <MenuItem value={10}>10:00</MenuItem>
+        <MenuItem value={20}>11:00</MenuItem>
+        <MenuItem value={30}>12:00</MenuItem>
+      </Select>
+    </FormControl>
   );
 }

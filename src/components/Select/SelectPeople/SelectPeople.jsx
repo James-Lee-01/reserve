@@ -18,10 +18,10 @@ export default function BasicSelect() {
 
   return (
     <FormControl variant='filled' sx={{ minWidth: 120 }}>
-      <InputLabel id='demo-simple-select-label'>People</InputLabel>
+      <InputLabel id='person-select-label'>People</InputLabel>
       <Select
-        labelId='demo-simple-select-label'
-        id='demo-simple-select'
+        labelId='person-select-label'
+        id='person-select'
         value={people}
         label='Person'
         autoWidth
