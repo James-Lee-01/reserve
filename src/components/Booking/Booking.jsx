@@ -1,7 +1,7 @@
 import styles from './Booking.module.scss'
 import dayjs from 'dayjs'
 import SelectTime from '../Select/SelectTime/SelectTime'
-import SelectPeople from '../Select/SelectPeople/SelectPeople'
+import SelectPeople from '../Select/SelectTable/SelectTable'
 import SelectGender from '../Select/SelectGender/SelectGender'
 // import TextField from '../TextField/TextField'
 import { TextField } from '@mui/material'
@@ -113,6 +113,8 @@ const themeDatePicker = createTheme({
 export default function Booking () {
   const [value, setValue] = useState(null)
   const [phone, setPhone] = useState('')
+  const [email, setEmail] = useState('')
+  const [emailErr, setEmailErr] = useState(false)
 
   const tomorrow = dayjs().add(1, "day");
   const nextWeek = dayjs().add(7, 'day')
@@ -126,6 +128,19 @@ export default function Booking () {
 
     setPhone(val);
   };
+
+  const handleEmail = (event) => {
+    const emailValue = event.target.value
+    setEmail(emailValue)
+
+    const emailValid = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+
+    if (emailValid.test(emailValue)) {
+      setEmailErr(false)
+    } else {
+      setEmailErr(true)
+    }
+  }
 
 
   return (
@@ -167,16 +182,28 @@ export default function Booking () {
                 <SelectGender />
                 <TextField label={"Name"} variant='filled' />
               </div>
-              <div className={styles.phoneWrapper}>
-                <TextField
-                  label={"Phone Number"}
-                  variant='filled'
-                  inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-                  value={phone}
-                  onChange={handleNumber}
-                />
+              <div className={styles.contactWrapper}>
+                <div className={styles.phoneWrapper}>
+                  <TextField
+                    label={"Phone Number"}
+                    variant='filled'
+                    inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                    value={phone}
+                    onChange={handleNumber}
+                  />
+                </div>
+                <div className={styles.emailWrapper}>
+                  <TextField
+                    label={"Email"}
+                    variant='filled'
+                    value={email}
+                    onChange={handleEmail}
+                    error={emailErr}
+                    helperText={emailErr ? "Incorrect email format." : ""}
+                  />
+                </div>
               </div>
-              <div className={styles.emailWrapper}></div>
+
               <div className={styles.noteWrapper}></div>
             </div>
           </div>

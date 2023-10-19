@@ -41,6 +41,7 @@
       align-items: center;
       margin: 20% 10%;
       gap: 32px;
+      padding: 0 10%;
 
       .timeWrapper {
         width: 100%;
@@ -50,6 +51,12 @@
       }
 
       .infoWrapper {
+        width: 100%;
+        display: flex;
+        gap: 32px;
+      }
+
+      .contactWrapper {
         width: 100%;
         display: flex;
         gap: 32px;
