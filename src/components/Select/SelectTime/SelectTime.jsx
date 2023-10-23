@@ -8,6 +8,22 @@ import { useState } from "react";
 export default function BasicSelect() {
   const [time, setTime] = useState("");
 
+
+  const generateTimeSlot = () => {
+    const timeSlot = []
+    for (let hour = 10; hour <= 18; hour++) {
+      const formattedTime = `${hour.toString().padStart(2, '0')} : 00`
+      const value = formattedTime.replace(':', '')
+      timeSlot.push({ formattedTime, value })
+    }
+    return timeSlot
+  }
+
+  const timeSlot = generateTimeSlot()
+
+  
+  
+
   const handleChange = (event) => {
     setTime(event.target.value);
   };
@@ -23,9 +39,11 @@ export default function BasicSelect() {
         autoWidth
         onChange={handleChange}
       >
-        <MenuItem value={10}>10:00</MenuItem>
-        <MenuItem value={20}>11:00</MenuItem>
-        <MenuItem value={30}>12:00</MenuItem>
+        {timeSlot.map((timeSlot, index) => (
+          <MenuItem key={index} value={timeSlot.value}>
+            {timeSlot.formattedTime}
+          </MenuItem>
+        ))}
       </Select>
     </FormControl>
   );
