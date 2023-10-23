@@ -1,9 +1,9 @@
 import styles from './Booking.module.scss'
 import dayjs from 'dayjs'
 import SelectTime from '../Select/SelectTime/SelectTime'
-import SelectPeople from '../Select/SelectTable/SelectTable'
+import SelectTable from '../Select/SelectTable/SelectTable'
 import SelectGender from '../Select/SelectGender/SelectGender'
-// import TextField from '../TextField/TextField'
+import { Box } from '@mui/material'
 import { TextField } from '@mui/material'
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -176,35 +176,47 @@ export default function Booking () {
                   }}
                 />
                 <SelectTime className={styles.timePicker} />
-                <SelectPeople className={styles.peoplePicker} />
+                <SelectTable className={styles.tablePicker} />
               </div>
               <div className={styles.infoWrapper}>
                 <SelectGender />
-                <TextField label={"Name"} variant='filled' />
+                <TextField label={"Name"} variant='filled' fullWidth={true} />
               </div>
               <div className={styles.contactWrapper}>
-                <div className={styles.phoneWrapper}>
-                  <TextField
-                    label={"Phone Number"}
-                    variant='filled'
-                    inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-                    value={phone}
-                    onChange={handleNumber}
-                  />
-                </div>
-                <div className={styles.emailWrapper}>
-                  <TextField
-                    label={"Email"}
-                    variant='filled'
-                    value={email}
-                    onChange={handleEmail}
-                    error={emailErr}
-                    helperText={emailErr ? "Incorrect email format." : ""}
-                  />
-                </div>
+                {/* <div className={styles.phoneWrapper}> */}
+                <TextField
+                  label={"Phone Number"}
+                  variant='filled'
+                  inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                  value={phone}
+                  onChange={handleNumber}
+                />
+                {/* </div> */}
+                {/* <div className={styles.emailWrapper}> */}
+                <TextField
+                  label={"Email"}
+                  variant='filled'
+                  value={email}
+                  onChange={handleEmail}
+                  error={emailErr}
+                  helperText={emailErr ? "Incorrect email format." : ""}
+                  fullWidth={true}
+                />
+                {/* </div> */}
               </div>
 
-              <div className={styles.noteWrapper}></div>
+              <div className={styles.noteWrapper}>
+                <TextField
+                  label={"Note"}
+                  variant='filled'
+                  multiline
+                  rows={5}
+                  fullWidth={true}
+                />
+              </div>
+              <div className={styles.submitBtn}>
+                
+              </div>
             </div>
           </div>
         </div>

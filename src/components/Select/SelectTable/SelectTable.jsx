@@ -28,7 +28,7 @@ export default function BasicSelect() {
         labelId='table-select-label'
         id='table-select'
         value={table}
-        label='Table'
+        label='Table for'
         autoWidth
         onChange={handleChange}
       >
