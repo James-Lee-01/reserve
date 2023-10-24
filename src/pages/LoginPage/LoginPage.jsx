@@ -1,15 +1,32 @@
 import styles from "./LoginPage.module.scss";
 import Input from "../../components/Input/Input";
 import { useState } from "react";
+import { useRef, useEffect } from "react";
+import { useLocation } from 'react-router-dom'
 
 export default function LoginPage() {
+  const location = useLocation();
+  // 滾動到 LoginPage 元件
+  const loginRef = useRef(null);
+
+  useEffect(() => {
+    if (location.pathname === "/login" && loginRef.current) {
+      loginRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [location.pathname]);
+  
+
   const [toggle, setToggle] = useState(true)
   const toggleSwitcher = () => {
     setToggle(!toggle)
   }
 
   return (
-    <div className={`${styles.container} ${toggle ? "" : styles.signUpActive}`}>
+    <div
+      id='login'
+      ref={loginRef}
+      className={`${styles.container} ${toggle ? "" : styles.signUpActive}`}
+    >
       <div className={styles.loginContainer}>
         <div className={styles.formWrapper}>
           <p className={styles.title}>Sign in</p>
