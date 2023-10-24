@@ -13,12 +13,8 @@ export default function LandingPage() {
       <HomePage />
       <WelcomePage />
       <FeaturePage />
-
       <LinkPage />      
-
-        <LoginPage />
-
-
+      <LoginPage />
       <FooterPage />
     </>
   );

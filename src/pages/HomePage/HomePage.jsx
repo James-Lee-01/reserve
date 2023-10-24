@@ -5,7 +5,7 @@ import Human2 from '../../assets/icons/Humaaans-yellow.png'
 export default function HomePage() {
 
   return (
-    <div className={styles.homeContainer}>
+    <div id="home" className={styles.homeContainer}>
       <div className={styles.homeWrapper}>
         <p className={styles.homeTitle}>RESERVE</p>
         <div className={styles.iconWrapper}>
