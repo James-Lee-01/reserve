@@ -1,9 +1,9 @@
 import styles from './Card.module.scss'
 import cafe1 from '../../assets/images/cafe1.jpeg'
 
-export default function Card() {
+export default function Card(key) {
   return (
-    <div className={styles.container}>
+    <div key={key} className={styles.container}>
       <img className={styles.cafeCover} src={cafe1} alt='cafe1' />
       <div className={styles.contentContainer}>
         <h3 className={styles.cafeName}>BRAUN NOTES</h3>
