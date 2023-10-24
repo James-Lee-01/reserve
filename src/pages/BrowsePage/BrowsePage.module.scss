@@ -1,4 +1,15 @@
 .container {
+  outline: 1px solid blue;
+}
+
+.searchBar {
+  // outline: 2px solid red;
+  display: block;
+  margin: 0 auto;
+}
+
+.cardWrapper {
+  outline: 1px solid orange;
   box-sizing: border-box;
   width: 100%;
   height: min-content;
