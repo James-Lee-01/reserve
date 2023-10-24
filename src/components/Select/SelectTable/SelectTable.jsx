@@ -23,12 +23,12 @@ export default function BasicSelect() {
 
   return (
     <FormControl variant='filled' sx={{ minWidth: 120 }}>
-      <InputLabel id='table-select-label'>Table</InputLabel>
+      <InputLabel id='table-select-label'>Table for</InputLabel>
       <Select
         labelId='table-select-label'
         id='table-select'
         value={table}
-        label='Table for'
+        label='Table'
         autoWidth
         onChange={handleChange}
       >

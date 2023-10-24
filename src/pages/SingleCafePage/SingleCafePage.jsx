@@ -13,13 +13,21 @@ import cafe1 from "../../assets/images/cafe1.jpeg"
 // （該餐廳可訂位日期、時段、人數）
 export default function SingleCafePage() {
   const carouselRef = useRef(null)
+  const bookingRef = useRef(null);
   const [showFavoriteIcon, setShowFavoriteIcon] = useState(false)
 
-  const handleClick = () => {
+  const handleClickMenu = () => {
     if (carouselRef.current) {
-      carouselRef.current.scrollIntoView({ behavior: "smooth",});
+      carouselRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }
+
+  const handleClickBooking = () => {
+    if (bookingRef.current) {
+      bookingRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const handleFavorite = () => {
     setShowFavoriteIcon(!showFavoriteIcon)
   }
@@ -58,13 +66,17 @@ export default function SingleCafePage() {
               onClick={handleFavorite}
               iconType={showFavoriteIcon ? "favorite" : "unFavorite"}
             />
-            <Button text='Menu' color='primary' onClick={handleClick} />
-            <Button text='Book Now' color='secondary' />
+            <Button text='Menu' color='primary' onClick={handleClickMenu} />
+            <Button
+              text='Book Now'
+              color='secondary'
+              onClick={handleClickBooking}
+            />
           </div>
         </div>
       </div>
       <Carousel ref={carouselRef} />
-      <Booking/>
+      <Booking ref={bookingRef} />
       <Footer />
     </>
   );

@@ -6,7 +6,7 @@ import Footer from '../../components/Footer/Footer'
 
 export default function BrowsePage() {
 
-  const cards = Array(12)
+  const cards = Array(6)
     .fill()
     .map((index) => <Card key={index} />);
 

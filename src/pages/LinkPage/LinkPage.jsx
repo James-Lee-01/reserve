@@ -6,7 +6,7 @@ export default function LinkPage() {
       <div className={styles.containWrapper}>
         <p className={styles.title}>Ready for savory memories?</p>
         <div className={styles.btnWrapper}>
-          <button className={styles.btn +' '+ styles.btnRed}>Browse All Cafes</button>
+          {/* <button className={styles.btn +' '+ styles.btnRed}>Browse All Cafes</button> */}
           <button className={styles.btn +' '+ styles.btnGreen}>Book Now</button>
         </div>
       </div>
