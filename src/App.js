@@ -12,6 +12,7 @@ import BrowsePage from './pages/BrowsePage/BrowsePage';
 import SingleCafePage from './pages/SingleCafePage/SingleCafePage'
 
 import LandingPage from './pages/LandingPage/LandingPage';
+import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
   
@@ -19,6 +20,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+      <AuthProvider>
       <Routes>
         <Route path='*' element={
         // <>
@@ -32,6 +34,7 @@ function App() {
         // </>
         <LandingPage/>
         }/>
+        
         <Route path='browse/all' element={
           <BrowsePage/>
         }/>
@@ -39,6 +42,7 @@ function App() {
           <SingleCafePage/>
         }/>
       </Routes>
+      </AuthProvider>
       </BrowserRouter>
     </div>
   );
