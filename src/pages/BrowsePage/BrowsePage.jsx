@@ -9,7 +9,7 @@ export default function BrowsePage() {
 
   const cards = Array(6)
     .fill()
-    .map((index) => <Card key={index} />);
+    .map((_,index) => <Card key={index} />);
 
 
   return (
@@ -17,7 +17,6 @@ export default function BrowsePage() {
       <Navbar />
       <div className={styles.container}>
         <div className={styles.searchBar}>
-          
         </div>
         <div className={styles.cardWrapper}>  
           {cards}
