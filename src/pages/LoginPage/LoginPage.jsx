@@ -2,24 +2,57 @@ import styles from "./LoginPage.module.scss";
 import Input from "../../components/Input/Input";
 import { useState } from "react";
 import { useRef, useEffect } from "react";
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useAuthContext } from "../../contexts/AuthContext";
 
 export default function LoginPage() {
   const location = useLocation();
   // 滾動到 LoginPage 元件
   const loginRef = useRef(null);
-
   useEffect(() => {
     if (location.pathname === "/login" && loginRef.current) {
       loginRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [location.pathname]);
-  
 
-  const [toggle, setToggle] = useState(true)
+  //Toggle切換
+  const [toggle, setToggle] = useState(true);
   const toggleSwitcher = () => {
-    setToggle(!toggle)
-  }
+    setToggle(!toggle);
+  };
+
+  //從上下文獲取login驗證
+  const { login, isAuthenticated } = useAuthContext();
+
+  const navigate = useNavigate()
+
+  //Login Btn
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+
+  const handleLogin = async () => {
+    if (!email || !password) {
+      setError("Login failed");
+      return;
+    } else {
+      setError(null);
+      const success = await login({ email, password });
+      if (success) {
+        console.log("Login success");
+      } else {
+        setError("Have you sign up yet?");
+      }
+    }
+  };
+
+  // redirection
+  useEffect(() => {
+    //確認後導向主頁面
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated, navigate]);
 
   return (
     <div
@@ -30,9 +63,22 @@ export default function LoginPage() {
       <div className={styles.loginContainer}>
         <div className={styles.formWrapper}>
           <p className={styles.title}>Sign in</p>
-          <Input type='email' placeholder='Email' />
-          <Input type='password' placeholder='Password' />
-          <button className={styles.submitBtn}>Login</button>
+          <Input
+            type='email'
+            placeholder='Email'
+            value={email}
+            onChange={(emailInput) => setEmail(emailInput)}
+          />
+          <Input
+            type='password'
+            placeholder='Password'
+            value={password}
+            onChange={(passwordInput) => setPassword(passwordInput)}
+          />
+          {error && <p className={styles.error}>{error}</p>}
+          <button className={styles.submitBtn} onClick={handleLogin}>
+            Login
+          </button>
         </div>
         <div className={styles.containWrapper}>
           <p className={styles.title}>Hello, friend!</p>

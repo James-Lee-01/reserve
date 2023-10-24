@@ -1,5 +1,6 @@
 .container {
   position: relative;
+  height: 100vh;
 
   & .loginContainer,
   & .signUpContainer {
@@ -43,7 +44,7 @@
 .loginContainer, .signUpContainer {
   // outline: 1px solid red;
   width: 100vw;
-  height: 600px;
+  height: 800px;
   display: flex;
   // flex: 1 0 0px;
   justify-content: center;
@@ -53,7 +54,7 @@
   .formWrapper {
     // outline: 1px solid green;
     // width: 50%;
-    padding: 100px;
+    padding: 0 100px;
     background-color: #FD878D;
     display: flex;
     flex-direction: column;
@@ -95,7 +96,7 @@
   }
 
   .title {
-    font-weight: 00;
+    font-weight: 400;
     font-family: "Goblin One", sans-serif;
     // font-family: "Libre Baskerville", "Libre Baskerville Placeholder", serif;
     color: #333333;

@@ -1,8 +1,10 @@
 import styles from './Navbar.module.scss'
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from '../../contexts/AuthContext';
 
 export default function Navbar() {
   const navigate = useNavigate();
+  const { logout, isAuthenticated } = useAuthContext()
 
   const handleReserveClick = () => {
     // 導向到 Route path='*'
@@ -15,12 +17,17 @@ export default function Navbar() {
   };
 
   const handleLoginClick = () => {
-    // 導向到 LoginPage
-    navigate("/login");
+    if (isAuthenticated) {
+      logout()
+      navigate("/")
+    } else {
+      // 導向到 LoginPage
+      navigate("/login");
 
-    const loginElement = document.getElementById("login");
-    if (loginElement) {
-      loginElement.scrollIntoView({ behavior: "smooth" });
+      const loginElement = document.getElementById("login");
+      if (loginElement) {
+        loginElement.scrollIntoView({ behavior: "smooth" });
+      }
     }
   };
 
@@ -34,6 +41,10 @@ export default function Navbar() {
     }
   }
 
+  const AccountBtn = () => {
+    return <button className={styles.navBtn}>Account</button>;
+  }
+
   return (
     <div className={styles.navbarContainer}>
       <p className={styles.title} onClick={handleReserveClick}>
@@ -44,8 +55,9 @@ export default function Navbar() {
       </button>
       {/* <button className={styles.navBtn}>All Cafe</button> */}
       <button className={styles.navBtn}>Book Now</button>
+      {isAuthenticated && <AccountBtn/>}
       <button className={styles.btn} onClick={handleLoginClick}>
-        Login
+        {isAuthenticated ? "Logout" : "Login"}
       </button>
     </div>
   );
