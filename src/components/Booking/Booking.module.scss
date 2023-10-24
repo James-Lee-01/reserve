@@ -1,5 +1,5 @@
 .container {
-  min-height: calc(100vh - 80px);
+  min-height: 100vh;
   display: flex;
 
   .textGroup {
@@ -34,7 +34,7 @@
     z-index: 0;
 
     .inputGroup {
-      outline: 1px solid orange;
+      // outline: 1px solid orange;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -50,12 +50,6 @@
         gap: 32px;
       }
 
-      .infoWrapper {
-        width: 100%;
-        display: flex;
-        gap: 32px;
-      }
-
       .contactWrapper {
         width: 100%;
         display: flex;
@@ -65,6 +59,9 @@
       .noteWrapper {
         width: 100%;
         display: flex;
+      }
+      .submitBtn {
+        margin-top: 24px;
       }
     }
   }

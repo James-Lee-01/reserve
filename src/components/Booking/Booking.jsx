@@ -2,13 +2,13 @@ import styles from './Booking.module.scss'
 import dayjs from 'dayjs'
 import SelectTime from '../Select/SelectTime/SelectTime'
 import SelectTable from '../Select/SelectTable/SelectTable'
-import SelectGender from '../Select/SelectGender/SelectGender'
-import { Box } from '@mui/material'
+
+import Button from '../Button/Button'
 import { TextField } from '@mui/material'
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { useState } from 'react';
+import { useState, forwardRef } from 'react';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
@@ -110,11 +110,11 @@ const themeDatePicker = createTheme({
 
 // 訂位資訊填寫頁（日期、時段、人數、姓名、性別、電話、email、備註）
 
-export default function Booking () {
+
+const Booking = forwardRef((props, ref) => {
   const [value, setValue] = useState(null)
   const [phone, setPhone] = useState('')
-  const [email, setEmail] = useState('')
-  const [emailErr, setEmailErr] = useState(false)
+
 
   const tomorrow = dayjs().add(1, "day");
   const nextWeek = dayjs().add(7, 'day')
@@ -129,98 +129,81 @@ export default function Booking () {
     setPhone(val);
   };
 
-  const handleEmail = (event) => {
-    const emailValue = event.target.value
-    setEmail(emailValue)
+  
 
-    const emailValid = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-
-    if (emailValid.test(emailValue)) {
-      setEmailErr(false)
-    } else {
-      setEmailErr(true)
-    }
-  }
-
+  const handleSubmit = (event) => {}
 
   return (
-    <ThemeProvider theme={themeDatePicker}>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <div className={styles.container}>
-          <div className={styles.textGroup}>
-            <h3 className={styles.textTitle}>Book Now</h3>
-            <p className={styles.textContent}>
-              {`Coffee & Comfort, all in one place.
+    <div ref={ref}>
+      <ThemeProvider theme={themeDatePicker}>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <div className={styles.container}>
+            <div className={styles.textGroup}>
+              <h3 className={styles.textTitle}>Book Now</h3>
+              <p className={styles.textContent}>
+                {`Coffee & Comfort, all in one place.
 
               Book Your Perfect Spot Right Here!`}
-            </p>
-          </div>
-          <div className={styles.inputContainer}>
-            <div className={styles.inputGroup}>
-              <div className={styles.timeWrapper}>
-                <DatePicker
-                  className={styles.datePicker}
-                  label='Pick a date'
-                  value={value}
-                  minDate={tomorrow}
-                  maxDate={nextWeek}
-                  onChange={(newValue) => setValue(newValue)}
-                  slotProps={{
-                    value: { color: "primary" },
-                    openPickerButton: { color: "primary" },
-                    textField: {
-                      variant: "filled",
-                      // focused: true,
-                      color: "primary",
-                    },
-                  }}
-                />
-                <SelectTime className={styles.timePicker} />
-                <SelectTable className={styles.tablePicker} />
-              </div>
-              <div className={styles.infoWrapper}>
-                <SelectGender />
-                <TextField label={"Name"} variant='filled' fullWidth={true} />
-              </div>
-              <div className={styles.contactWrapper}>
-                {/* <div className={styles.phoneWrapper}> */}
-                <TextField
-                  label={"Phone Number"}
-                  variant='filled'
-                  inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-                  value={phone}
-                  onChange={handleNumber}
-                />
-                {/* </div> */}
-                {/* <div className={styles.emailWrapper}> */}
-                <TextField
-                  label={"Email"}
-                  variant='filled'
-                  value={email}
-                  onChange={handleEmail}
-                  error={emailErr}
-                  helperText={emailErr ? "Incorrect email format." : ""}
-                  fullWidth={true}
-                />
-                {/* </div> */}
-              </div>
+              </p>
+            </div>
+            <div className={styles.inputContainer}>
+              <div className={styles.inputGroup}>
+                <div className={styles.timeWrapper}>
+                  <DatePicker
+                    className={styles.datePicker}
+                    label='Pick a date'
+                    value={value}
+                    minDate={tomorrow}
+                    maxDate={nextWeek}
+                    onChange={(newValue) => setValue(newValue)}
+                    slotProps={{
+                      value: { color: "primary" },
+                      openPickerButton: { color: "primary" },
+                      textField: {
+                        variant: "filled",
+                        // focused: true,
+                        color: "primary",
+                      },
+                    }}
+                  />
+                  <SelectTime className={styles.timePicker} />
+                  <SelectTable className={styles.tablePicker} />
+                </div>
 
-              <div className={styles.noteWrapper}>
-                <TextField
-                  label={"Note"}
-                  variant='filled'
-                  multiline
-                  rows={5}
-                  fullWidth={true}
-                />
-              </div>
-              <div className={styles.submitBtn}>
-                
+                <div className={styles.contactWrapper}>
+                  <TextField
+                    label={"Phone Number"}
+                    variant='filled'
+                    inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                    value={phone}
+                    onChange={handleNumber}
+                  />
+                </div>
+
+                <div className={styles.noteWrapper}>
+                  <TextField
+                    label={"Note"}
+                    variant='filled'
+                    multiline
+                    rows={5}
+                    fullWidth={true}
+                  />
+                </div>
+                <div className={styles.submitBtn}>
+                  <Button
+                    color={"secondary"}
+                    text='Submit Booking'
+                    size={"large"}
+                    // onClick={handleSubmit}
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </LocalizationProvider>
-    </ThemeProvider>
+        </LocalizationProvider>
+      </ThemeProvider>
+    </div>
   );
-}
+})
+
+export default Booking

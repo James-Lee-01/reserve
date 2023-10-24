@@ -16,7 +16,7 @@ const theme = createTheme({
 });
 
 
-export default function Btn({ text, color, href, onClick, iconType, endIcon }) {
+export default function Btn({ text, color, size, href, onClick, iconType, endIcon }) {
   const renderIcon = (type) => {
     switch (type) {
       case "favorite":
@@ -33,6 +33,7 @@ export default function Btn({ text, color, href, onClick, iconType, endIcon }) {
       <Button
         variant='contained'
         color={color}
+        size={size}
         href={href}
         onClick={onClick}
         startIcon={renderIcon(iconType)}
@@ -40,7 +41,6 @@ export default function Btn({ text, color, href, onClick, iconType, endIcon }) {
       >
         {text}
       </Button>
-      ;
     </ThemeProvider>
   );
 }
