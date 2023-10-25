@@ -62,23 +62,39 @@ export function AuthProvider({ children }) {
     setPayload(null);
   }
 
-  //針對登入的驗證（判斷是否為前台或後台人員）
+  //針對登入的驗證
   async function login({ email, password }) {
-    const { success, authToken } = await userLogin({
+    const { success, authToken, message } = await userLogin({
       email,
       password,
     });
 
-    const tempPayload = jwt_decode(authToken);
-    if (tempPayload) {
-      setIsAuthenticated(true);
-      setPayload(tempPayload);
+    if (!success) {
+      console.error("登入失敗:", message);
+      return message;
+    }
 
-      localStorage.setItem("authToken", authToken);
-      return success;
-    } else {
+    try {
+      const tempPayload = jwt_decode(authToken);
+      if (tempPayload) {
+        setIsAuthenticated(true);
+        setPayload(tempPayload);
+
+        localStorage.setItem("authToken", authToken);
+        return { success: true, message };
+      } else {
+        // 返回 JWT 解碼失敗的錯誤訊息
+        console.error("JWT 解碼錯誤");
+        setIsAuthenticated(false);
+        setPayload(null);
+        return { success: false, message };
+      }
+    } catch (error) {
+      // 返回 JWT 解碼異常的錯誤訊息
+      console.error("JWT 解碼異常:", error);
       setIsAuthenticated(false);
       setPayload(null);
+      return { success: false, message };
     }
   }
 

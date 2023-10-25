@@ -23,15 +23,6 @@ function App() {
       <AuthProvider>
       <Routes>
         <Route path='*' element={
-        // <>
-        //   <Navbar/>
-        //   <HomePage/>
-        //   <WelcomePage/>
-        //   <FeaturePage/>
-        //   <LinkPage/>
-        //   <LoginPage/>
-        //   <FooterPage/>
-        // </>
         <LandingPage/>
         }/>
         

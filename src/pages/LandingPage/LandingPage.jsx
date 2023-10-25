@@ -5,8 +5,11 @@ import FeaturePage from "../FeaturePage/FeaturePage";
 import LinkPage from "../LinkPage/LinkPage";
 import LoginPage from "../LoginPage/LoginPage";
 import FooterPage from "../FooterPage/FooterPage";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 export default function LandingPage() {
+  const { isAuthenticated } =useAuthContext()
+  
   return (
     <>
       <Navbar />
@@ -14,7 +17,7 @@ export default function LandingPage() {
       <WelcomePage />
       <FeaturePage />
       <LinkPage />      
-      <LoginPage />
+      {isAuthenticated ? null : <LoginPage />}
       <FooterPage />
     </>
   );

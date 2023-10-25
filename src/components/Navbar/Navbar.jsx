@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2'
 import styles from './Navbar.module.scss'
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from '../../contexts/AuthContext';
@@ -13,6 +14,8 @@ export default function Navbar() {
     const homeElement = document.getElementById("home");
     if (homeElement) {
       homeElement.scrollIntoView({behavior: "smooth"})
+    } else {
+      window.scrollTo(0, 0);
     }
   };
 
@@ -41,6 +44,35 @@ export default function Navbar() {
     }
   }
 
+  const handleBrowseAll = () => {
+    // 導向BrowseAllPage
+    if (isAuthenticated) {
+      navigate("/browse/all");
+      window.scrollTo(0, 0);
+
+    } else {
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        title: "Please Login first",
+        icon: "info",
+        timer: 1000,
+        showConfirmButton: false,
+        confirmButtonText: "OK",
+      }).then((result) => {
+        if (result.dismiss === Swal.DismissReason.timer) {
+          //After Swal close
+          navigate("/login");
+
+          const loginElement = document.getElementById("login");
+          if (loginElement) {
+            loginElement.scrollIntoView();
+          }
+        }
+      })
+    }
+  }
+
   const AccountBtn = () => {
     return <button className={styles.navBtn}>Account</button>;
   }
@@ -54,7 +86,7 @@ export default function Navbar() {
         About
       </button>
       {/* <button className={styles.navBtn}>All Cafe</button> */}
-      <button className={styles.navBtn}>Book Now</button>
+      <button className={styles.navBtn} onClick={handleBrowseAll}>Book Now</button>
       {isAuthenticated && <AccountBtn/>}
       <button className={styles.btn} onClick={handleLoginClick}>
         {isAuthenticated ? "Logout" : "Login"}

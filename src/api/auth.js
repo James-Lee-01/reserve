@@ -32,23 +32,38 @@ export const userLogin = async ({ email, password }) => {
     })
 
     //驗證角色身份
-    // const { authToken, role } = data
     const status = data.status
     const authToken = data.token
+    const message = data.message
 
     //若角色符合user
     if (status === 'success') {
       // console.log(status)
       // console.log(authToken)
-      return { success: true, authToken }
+      return { success: true, authToken, message}
     } else {
       //顯示錯誤訊息(暫時)
       console.error('帳號不存在')
+      return { success: false, message: data.response.data.message }
     }
-    
-    return 
   } catch (error) {
     console.error(`[Get User failed]: `, error)
+    return { success: false, message: error.response.data.message }
+  }
+}
+
+//signup(user)
+export const userSignUp = async ({ name, email, password, checkPassword }) => {
+  try {
+    const { data } = await axios.post(`${baseUrl}/signup`, {
+      name,
+      email,
+      password,
+      checkPassword,
+    })
+    return data
+  } catch (error) {
+    console.error('[SignUp Failed]', error)
     return error
   }
 }
