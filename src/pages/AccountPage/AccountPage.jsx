@@ -5,7 +5,7 @@ import Input from '../../components/Input/Input'
 import ReservationCard from '../../components/ReservationCard/ReservationCard';
 
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../contexts/AuthContext';
 import { getUser, putAccount } from "../../api/auth";
 
@@ -16,8 +16,8 @@ export default function AccountPage() {
   const [passwordSignUp, setPasswordSignUp] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
   const [error, setError] = useState(null);
-  const { currentUser, isAuthenticated } = useAuthContext();
-  const navigate = useNavigate();
+  const { currentUser } = useAuthContext();
+  // const navigate = useNavigate();
 
   //取目前使用者的id
   const userId = currentUser && currentUser.id;
