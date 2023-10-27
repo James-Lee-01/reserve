@@ -67,3 +67,34 @@ export const userSignUp = async ({ name, email, password, checkPassword }) => {
     return error
   }
 }
+
+
+//Get User Info Data
+export const getUser = async (userId) => {
+  try {
+    const { data } = await axiosInstance.get(`/users/${userId}`)
+    if (data)
+    return data
+  } catch (error) {
+    console.error('[Get user info Failed], error')
+    return error
+  }
+}
+
+
+//Setting user account
+export const putAccount = async ({ name, email, password, checkPassword, userId }) => {
+  try {
+    const { data } = await axiosInstance.put(`/users/${userId}/account`, {
+      name,
+      email,
+      password,
+      checkPassword,
+    })
+    return data
+  } catch (error) {
+    console.error('[Set account Failed]', error)
+    console.log(error.message)
+    return error
+  }
+}
