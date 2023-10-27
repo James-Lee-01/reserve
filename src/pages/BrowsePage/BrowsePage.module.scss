@@ -1,5 +1,9 @@
 .container {
   // outline: 1px solid blue;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .searchBar {
@@ -10,18 +14,30 @@
 
 .cardWrapper {
   // outline: 1px solid orange;
-  box-sizing: border-box;
-  width: 100%;
-  height: min-content;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 100px 40px 100px 40px;
-  position: relative;
-  flex-wrap: wrap;
-  overflow: visible;
-  gap: 48px;
+  // box-sizing: border-box;
+  // width: 100%;
+  // height: min-content;
+  // display: flex;
+  // flex-direction: row;
+  // justify-content: center;
+  // align-items: center;
+  padding: 100px 40px;
+  // position: relative;
+  // flex-wrap: wrap;
+  // overflow: visible;
+  // gap: 48px;
+
+  display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+  
+    @media (max-width: 1200px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  
+    @media (max-width: 800px) {
+      grid-template-columns: 1fr;
+    }
 }
 
 .navigator {

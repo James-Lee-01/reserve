@@ -8,7 +8,7 @@ import { useState } from 'react'
 
 export default function BrowsePage() {
 
-  const cards = Array(10)
+  const cards = Array(20)
     .fill()
     .map((_,index) => <Card key={index} />);
 
