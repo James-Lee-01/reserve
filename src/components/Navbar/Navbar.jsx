@@ -10,12 +10,11 @@ export default function Navbar() {
   const handleReserveClick = () => {
     // 導向到 Route path='*'
     navigate("/");
+    window.scrollTo(0, 0);
 
     const homeElement = document.getElementById("home");
     if (homeElement) {
       homeElement.scrollIntoView({behavior: "smooth"})
-    } else {
-      window.scrollTo(0, 0);
     }
   };
 
@@ -73,8 +72,24 @@ export default function Navbar() {
     }
   }
 
+  
+
   const AccountBtn = () => {
-    return <button className={styles.navBtn}>Account</button>;
+    const handleAccountClick = () => {
+      // 導向AccountPage
+      navigate("/account");
+      window.scrollTo(0, 0);
+
+      const accountElement = document.getElementById("account");
+      if (accountElement) {
+        accountElement.scrollIntoView({ behavior: "smooth" });
+      }
+    };
+    return (
+      <button className={styles.navBtn} onClick={handleAccountClick}>
+        Account
+      </button>
+    );
   }
 
   return (
