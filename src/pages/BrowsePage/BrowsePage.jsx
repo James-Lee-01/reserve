@@ -1,5 +1,6 @@
 import styles from './BrowsePage.module.scss'
 import Navbar from '../../components/Navbar/Navbar'
+import BrowseBar from '../../components/BrowseBar/BrowseBar'
 import Card from '../../components/Card/Card'
 import Pagination from '../../components/Pagination/Pagination'
 import Footer from '../../components/Footer/Footer'
@@ -37,11 +38,15 @@ export default function BrowsePage() {
     <>
       <Navbar />
       <div className={styles.container}>
-        <div className={styles.searchBar}></div>
+        <div className={styles.browseBar}><BrowseBar/></div>
         <div className={styles.cardWrapper}>{currentPageCards}</div>
       </div>
       <div className={styles.navigator}>
-        <Pagination count={totalPages} page={currentPage} onChange={handlePageChange}/>
+        <Pagination
+          count={totalPages}
+          page={currentPage}
+          onChange={handlePageChange}
+        />
       </div>
       <Footer />
     </>

@@ -5,31 +5,27 @@ import Select from "@mui/material/Select";
 
 import { useState } from "react";
 
-export default function BasicSelect() {
+export default function BasicSelect({variant, timeSlot}) {
   const [time, setTime] = useState("");
 
+  // //Without API Calls
+  //   const timeSlot = []
+  //   for (let hour = 10; hour <= 18; hour++) {
+  //     const formattedTime = `${hour.toString().padStart(2, '0')} : 00`
+  //     const value = formattedTime.replace(':', '')
+  //     timeSlot.push({ formattedTime, value })
+  //   }
+  //   return timeSlot
+  // }
 
-  const generateTimeSlot = () => {
-    const timeSlot = []
-    for (let hour = 10; hour <= 18; hour++) {
-      const formattedTime = `${hour.toString().padStart(2, '0')} : 00`
-      const value = formattedTime.replace(':', '')
-      timeSlot.push({ formattedTime, value })
-    }
-    return timeSlot
-  }
-
-  const timeSlot = generateTimeSlot()
-
-  
-  
+  // const timeSlot = generateTimeSlot()
 
   const handleChange = (event) => {
     setTime(event.target.value);
   };
 
   return (
-    <FormControl variant='filled' sx={{ minWidth: 120 }}>
+    <FormControl variant={variant || "filled"} sx={{ minWidth: 120 }}>
       <InputLabel id='time-select-label'>Time</InputLabel>
       <Select
         labelId='time-select-label'

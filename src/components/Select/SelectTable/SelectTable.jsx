@@ -5,7 +5,7 @@ import Select from "@mui/material/Select";
 
 import { useState } from "react";
 
-export default function BasicSelect() {
+export default function BasicSelect({variant}) {
   const [table, setTable] = useState("");
 
   const handleChange = (event) => {
@@ -22,7 +22,7 @@ export default function BasicSelect() {
     });
 
   return (
-    <FormControl variant='filled' sx={{ minWidth: 120 }}>
+    <FormControl variant={ variant || 'filled' } sx={{ minWidth: 120 }}>
       <InputLabel id='table-select-label'>Table for</InputLabel>
       <Select
         labelId='table-select-label'

@@ -3,6 +3,7 @@ import { Button } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import SearchIcon from "@mui/icons-material/Search";
 
 const theme = createTheme({
   palette: {
@@ -12,6 +13,9 @@ const theme = createTheme({
     secondary: {
       main: "#c81d25",
     },
+    third: {
+      main: "#ffffff"
+    }
   },
 });
 
@@ -23,6 +27,8 @@ export default function Btn({ text, color, size, href, onClick, iconType, endIco
         return <FavoriteIcon />;
       case "unFavorite":
         return <FavoriteBorderIcon />;
+      case "search":
+        return <SearchIcon />;
       default:
         return null;
     }
@@ -37,7 +43,7 @@ export default function Btn({ text, color, size, href, onClick, iconType, endIco
         href={href}
         onClick={onClick}
         startIcon={renderIcon(iconType)}
-        endIcon={endIcon}
+        endIcon={renderIcon(endIcon)}
       >
         {text}
       </Button>
