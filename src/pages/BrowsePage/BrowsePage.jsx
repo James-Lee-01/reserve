@@ -5,13 +5,42 @@ import Card from '../../components/Card/Card'
 import Pagination from '../../components/Pagination/Pagination'
 import Footer from '../../components/Footer/Footer'
 // import SearchBar from '../../components/SearchBar/SearchBar'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { getAllCafes } from '../../api/cafe'
 
 export default function BrowsePage() {
+  const [cardSlot, setCardSlot] = useState([]);
+  const [notFound, setNotFound] = useState(false)
 
-  const cards = Array(20)
-    .fill()
-    .map((_,index) => <Card key={index} />);
+  //render all cafes
+  useEffect(() => {
+    const generateAllCafes = async () => {
+      try {
+        const cardData = await getAllCafes();
+        if (cardData.length > 0) {
+          setCardSlot(cardData);
+        } else {
+          console.log('No result')
+          setNotFound(true)
+        }
+      } catch (error) {
+        console.log(`[Get cards failed]`, error);
+      }
+    }
+
+    generateAllCafes()
+  }, [])
+
+  const cards = cardSlot.map((cardData) => (
+    <Card
+      key={cardData.id}
+      id={cardData.id}
+      cover={cardData.cover}
+      cafeName={cardData.name}
+      city={cardData.city}
+      intro={cardData.intro}
+    />
+  ));
 
   //Pagination count
   const itemPerPage = 6
@@ -32,6 +61,16 @@ export default function BrowsePage() {
   //range render on screen
   const currentPageCards = cards.slice(startIndex, endIndex)
 
+  ////Not Found notification
+  function NotFoundComponent() {
+  return (
+    <div>
+      <h2>Not Found</h2>
+      <p>Sorry, no results were found.</p>
+    </div>
+  );
+}
+
 
 
   return (
@@ -39,14 +78,14 @@ export default function BrowsePage() {
       <Navbar />
       <div className={styles.container}>
         <div className={styles.browseBar}><BrowseBar/></div>
-        <div className={styles.cardWrapper}>{currentPageCards}</div>
+        <div className={styles.cardWrapper}>{notFound ? <NotFoundComponent/> : currentPageCards}</div>
       </div>
       <div className={styles.navigator}>
-        <Pagination
+        {!notFound && (<Pagination
           count={totalPages}
           page={currentPage}
           onChange={handlePageChange}
-        />
+        />)}
       </div>
       <Footer />
     </>

@@ -5,24 +5,23 @@ import Select from "@mui/material/Select";
 
 import { useState } from "react";
 
-export default function BasicSelect({variant}) {
+export default function BasicSelect({ variant, tableSlot }) {
   const [table, setTable] = useState("");
 
   const handleChange = (event) => {
     setTable(event.target.value);
   };
 
-  const selectTable = [1, 2, 4, 6]
-    .map((value, index) => {
-      return (
-        <MenuItem key={index} value={value}>
-          {value}
-        </MenuItem>
-      );
-    });
+  const selectTable = tableSlot.map((tableSlot, index) => {
+    return (
+      <MenuItem key={index} value={tableSlot}>
+        {tableSlot}
+      </MenuItem>
+    );
+  });
 
   return (
-    <FormControl variant={ variant || 'filled' } sx={{ minWidth: 120 }}>
+    <FormControl variant={variant || "filled"} sx={{ minWidth: 120 }}>
       <InputLabel id='table-select-label'>Table for</InputLabel>
       <Select
         labelId='table-select-label'

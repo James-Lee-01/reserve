@@ -1,7 +1,7 @@
 .container {
   // outline: 1px solid orange;
   width: 360px;
-  height: min-content; /* 459px */
+  height: min-content;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -26,12 +26,12 @@
   .contentContainer {
     box-sizing: border-box;
     flex-shrink: 0;
-    max-width: 320px;
-    height: min-content;
+    width: 89%;
+    height: 220px;
     /* 219px */
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    // justify-content: center;
     align-items: flex-start;
     padding: 16px 24px;
     position: relative;

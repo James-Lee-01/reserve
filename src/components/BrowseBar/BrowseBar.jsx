@@ -10,7 +10,9 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { getTimes } from '../../api/time';
+import { getTimeSlots } from "../../api/time";
+import { getSeats } from "../../api/time"
+import { getCities } from '../../api/cities';
 
 //Set ThemeProvider
 const themeDatePicker = createTheme({
@@ -116,32 +118,71 @@ const themeDatePicker = createTheme({
 });
 
 export default function BrowseBar() {
-    const [value, setValue] = useState(null);
-    const tomorrow = dayjs().add(1, "day");
-    const nextWeek = dayjs().add(7, "day");
-    const [timeSlot, setTimeSlot] = useState([]);
+  const [value, setValue] = useState(null);
+  const tomorrow = dayjs().add(1, "day");
+  const nextWeek = dayjs().add(7, "day");
+  const [timeSlot, setTimeSlot] = useState([]);
+  const [tableSlot, setTableSlot] = useState([]);
+  const [citySlot, setCitySlot] = useState([]);
 
-    //For Time Select
-    useEffect(() => {
-      const generateTimeSlot = async () => {
-        try {
-          const timeSlot = await getTimes(); //prop.api
-          if (timeSlot) {
-            //Convert the time options format
-            const formattedTimeSlot = timeSlot.map((time) => ({
-              formattedTime: `${time.slice(0, 2)}:${time.slice(2)}`,
-              value: time,
-            }));
-            setTimeSlot(formattedTimeSlot);
-          }
-        } catch (error) {
-          console.log(`[Get time options failed]`, error);
+  //For Time Select
+  useEffect(() => {
+    const generateTimeSlot = async () => {
+      try {
+        const timeSlot = await getTimeSlots(); //prop.api
+        if (timeSlot) {
+          //Convert the time options format
+          const formattedTimeSlot = timeSlot.map((time) => ({
+            formattedTime: `${time.slice(0, 2)}:${time.slice(2)}`,
+            value: time,
+          }));
+          setTimeSlot(formattedTimeSlot);
         }
-      };
+      } catch (error) {
+        console.log(`[Get time options failed]`, error);
+      }
+    };
 
-      generateTimeSlot();
-    }, []);
+    generateTimeSlot();
+  }, []);
 
+  //For Table Select
+  useEffect(() => {
+    const generateTableSlot = async () => {
+      try {
+        const tableSlot = await getSeats(); //prop.api
+        if (tableSlot.length > 0) {
+          console.log(tableSlot);
+          setTableSlot(tableSlot);
+        } else {
+          setTableSlot(["-"]);
+        }
+      } catch (error) {
+        console.log(`[Get table options failed]`, error);
+      }
+    };
+
+    generateTableSlot();
+  }, []);
+
+  //For City Select
+  useEffect(() => {
+    const generateCitySlot = async () => {
+      try {
+        const citySlot = await getCities(); //prop.api
+        if (citySlot.length > 0) {
+          console.log(citySlot);
+          setCitySlot(citySlot);
+        } else {
+          setCitySlot(["-"]);
+        }
+      } catch (error) {
+        console.log(`[Get city options failed]`, error);
+      }
+    };
+
+    generateCitySlot();
+  }, []);
 
   return (
     <ThemeProvider theme={themeDatePicker}>
@@ -169,8 +210,16 @@ export default function BrowseBar() {
             variant={"standard"}
             timeSlot={timeSlot}
           />
-          <SelectTable className={styles.tablePicker} variant={"standard"} />
-          <SelectCity className={styles.cityPicker} variant={"standard"} />
+          <SelectTable
+            className={styles.tablePicker}
+            variant={"standard"}
+            tableSlot={tableSlot}
+          />
+          <SelectCity
+            className={styles.cityPicker}
+            variant={"standard"}
+            citySlot={citySlot}
+          />
           <Button
             text={"Search"}
             color={"third"}
