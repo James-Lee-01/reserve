@@ -35,12 +35,14 @@ export const userLogin = async ({ email, password }) => {
     const status = data.status
     const authToken = data.token
     const message = data.message
+    const role = data.role
 
     //若角色符合user
     if (status === 'success') {
       // console.log(status)
       // console.log(authToken)
-      return { success: true, authToken, message}
+      // console.log(data)
+      return { success: true, authToken, message, role}
     } else {
       //顯示錯誤訊息(暫時)
       console.error('帳號不存在')
