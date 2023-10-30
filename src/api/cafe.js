@@ -33,3 +33,35 @@ export const getAllCafes = async () => {
     return error
   }
 }
+
+//get single cafes
+export const getCafe = async (id) => {
+  try {
+    const { data } = await axiosInstance.get(`/cafes/${id}`)
+    console.log(data)
+    return data
+  } catch (error) {
+    console.error('[getCafe Failed]', error)
+    return error
+  }
+}
+
+//post cafe favorite
+export const postFavorite = async (cafeId) => {
+  try {
+    await axiosInstance.post(`/favorites/${cafeId}`);
+  } catch (error) {
+    console.error('[postFavorite Failed]:', error);
+    return error
+  }
+};
+
+//post cafe unfavorite
+export const deleteFavorite = async (cafeId) => {
+  try {
+    await axiosInstance.delete(`/favorites/${cafeId}`);
+  } catch (error) {
+    console.error('[deleteFavorite Failed]:', error);
+    return error
+  }
+};
