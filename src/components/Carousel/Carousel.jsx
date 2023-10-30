@@ -9,18 +9,17 @@ import 'swiper/css/navigation'
 
 import styles from './Carousel.module.scss';
 
-import image from '../../assets/images/cafe1.jpeg'
+import image1 from '../../assets/images/cafe1.jpeg'
 
 // register();
 
-const Carousel = forwardRef((props, ref) => {
-
+const Carousel = forwardRef(({ images }, ref) => {
   const params = {
     modules: [Pagination, Navigation],
-    slidesPerView: 2,
+    slidesPerView: 1.65,
     // slidesPerView: "auto",
     centeredSlides: true,
-    // spaceBetween: 60,
+    spaceBetween: 60,
     loop: true,
     // touchEventsTarget: 'wrapper',
     pagination: {
@@ -33,14 +32,14 @@ const Carousel = forwardRef((props, ref) => {
     },
   };
 
-  const slides = 
-    Array(5).fill().map((_,index) => {return (
+  const slides = images.map((image, index) => {
+    return (
       <SwiperSlide key={index} className={styles.slide}>
-        <img src={image} alt={index} />
-        <p>{index+1}</p>
+        <img src={image || image1} alt={`${index + 1}`} />
+        <p>{index + 1}</p>
       </SwiperSlide>
-    );})
-  
+    );
+  });
 
   return (
     <div className={styles.carouselContainer} ref={ref}>
@@ -71,6 +70,6 @@ const Carousel = forwardRef((props, ref) => {
       </Swiper>
     </div>
   );
-})
+});
 
 export default Carousel

@@ -5,6 +5,7 @@ import Card from '../../components/Card/Card'
 import Pagination from '../../components/Pagination/Pagination'
 import Footer from '../../components/Footer/Footer'
 // import SearchBar from '../../components/SearchBar/SearchBar'
+import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { getAllCafes } from '../../api/cafe'
 
@@ -32,14 +33,16 @@ export default function BrowsePage() {
   }, [])
 
   const cards = cardSlot.map((cardData) => (
-    <Card
-      key={cardData.id}
-      id={cardData.id}
-      cover={cardData.cover}
-      cafeName={cardData.name}
-      city={cardData.city}
-      intro={cardData.intro}
-    />
+    <Link to={`/browse/single/cafe/${cardData.id}`} key={cardData.id} className={styles.link}>
+      <Card
+        key={cardData.id}
+        id={cardData.id}
+        cover={cardData.cover}
+        cafeName={cardData.name}
+        city={cardData.city}
+        intro={cardData.intro}
+      />
+    </Link>
   ));
 
   //Pagination count
