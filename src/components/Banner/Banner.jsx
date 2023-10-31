@@ -7,16 +7,27 @@ import human7 from '../../assets/icons/Humaaans7.png'
 import human8 from '../../assets/icons/Humaaans8.png'
 
 export default function Banner() {
-  const humans = [human3, human4, human5, human6, human7, human8]
-
+  const humans = [
+    { id: "human3", src: human3, alt: "human3" },
+    { id: "human4", src: human4, alt: "human4" },
+    { id: "human5", src: human5, alt: "human5" },
+    { id: "human6", src: human6, alt: "human6" },
+    { id: "human7", src: human7, alt: "human7" },
+    { id: "human8", src: human8, alt: "human8" },
+  ];
 
   return (
     <div className={styles.container}>
       <div className={styles.imgWrapper}>
         {humans.map((human) => (
-          <img className={styles.imgHuman} src={human} alt={human} />
+          <img
+            key={human.id}
+            className={styles.imgHuman}
+            src={human.src}
+            alt={human.alt}
+          />
         ))}
       </div>
     </div>
-  )
+  );
 }

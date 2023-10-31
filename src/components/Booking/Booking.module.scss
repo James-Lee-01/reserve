@@ -1,0 +1,68 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+
+  .textGroup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+    background-color: #141414;
+
+    .textTitle {
+      margin-top: 20%;
+      font-size: 48px;
+      font-weight: 700;
+      color: white;
+      font-family: "Goblin One", sans-serif;
+    }
+
+    .textContent {
+      font-size: 28px;
+      font-style: italic;
+      color: white;
+      font-family: "Libre Baskerville", "Libre Baskerville Placeholder", serif;
+      // word-wrap: break-word;
+      // overflow-wrap: break-word;
+      white-space: pre-line;
+    }
+  }
+
+  .inputContainer {
+    width: 60%;
+    background-color: #0A7E8B;
+    z-index: 0;
+
+    .inputGroup {
+      // outline: 1px solid orange;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 20% 10%;
+      gap: 32px;
+      padding: 0 10%;
+
+      .timeWrapper {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        gap: 32px;
+      }
+
+      .contactWrapper {
+        width: 100%;
+        display: flex;
+        gap: 32px;
+      }
+
+      .noteWrapper {
+        width: 100%;
+        display: flex;
+      }
+      .submitBtn {
+        margin-top: 24px;
+      }
+    }
+  }
+}
