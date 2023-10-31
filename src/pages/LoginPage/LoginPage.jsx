@@ -36,7 +36,7 @@ export default function LoginPage() {
   const handleLogin = async () => {
     setError(null);
     const data = await login({ email, password });
-    if (data.success === true) {
+    if (data.success === true && data.role === 'user') {
       Swal.fire({
         toast: true,
         position: "top",

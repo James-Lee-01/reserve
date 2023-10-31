@@ -65,3 +65,27 @@ export const deleteFavorite = async (cafeId) => {
     return error
   }
 };
+
+//get all favorite cafes
+export const getFavoriteCafes = async () => {
+  try {
+    const { data } = await axiosInstance.get('/favorites')
+    console.log(data)
+    return data
+  } catch (error) {
+    console.error('[getFavoriteCafes Failed]', error)
+    return error
+  }
+}
+
+//get all my cafes
+export const getOwnCafes = async () => {
+  try {
+    const { data } = await axiosInstance.get('/cafes/owner')
+    console.log(data)
+    return data
+  } catch (error) {
+    console.error('[getOwnCafes Failed]', error)
+    return error
+  }
+}
