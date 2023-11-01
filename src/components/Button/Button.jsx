@@ -5,6 +5,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import SearchIcon from "@mui/icons-material/Search";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import EditIcon from "@mui/icons-material/Edit";
 
 const theme = createTheme({
   palette: {
@@ -16,7 +17,7 @@ const theme = createTheme({
     },
     third: {
       main: "#ffffff"
-    }
+    },
   },
 });
 
@@ -32,6 +33,8 @@ export default function Btn({ text, color, size, href, onClick, iconType, endIco
         return <SearchIcon />;
       case "loading":
         return <MoreHorizIcon />;
+      case "edit":
+        return <EditIcon />;
       default:
         return null;
     }
