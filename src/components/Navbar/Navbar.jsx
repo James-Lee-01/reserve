@@ -2,10 +2,11 @@ import Swal from 'sweetalert2'
 import styles from './Navbar.module.scss'
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from '../../contexts/AuthContext';
+import { Link } from 'react-router-dom'
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const { logout, isAuthenticated } = useAuthContext()
+  const { logout, isAuthenticated } = useAuthContext();
 
   const handleReserveClick = () => {
     // 導向到 Route path='*'
@@ -14,14 +15,14 @@ export default function Navbar() {
 
     const homeElement = document.getElementById("home");
     if (homeElement) {
-      homeElement.scrollIntoView({behavior: "smooth"})
+      homeElement.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   const handleLoginClick = () => {
     if (isAuthenticated) {
-      logout()
-      navigate("/")
+      logout();
+      navigate("/");
     } else {
       // 導向到 LoginPage
       navigate("/login");
@@ -41,14 +42,13 @@ export default function Navbar() {
     if (aboutElement) {
       aboutElement.scrollIntoView({ behavior: "smooth" });
     }
-  }
+  };
 
   const handleBrowseAll = () => {
     // 導向BrowseAllPage
     if (isAuthenticated) {
       navigate("/browse/all");
       window.scrollTo(0, 0);
-
     } else {
       Swal.fire({
         toast: true,
@@ -68,11 +68,9 @@ export default function Navbar() {
             loginElement.scrollIntoView();
           }
         }
-      })
+      });
     }
-  }
-
-  
+  };
 
   const AccountBtn = () => {
     const handleAccountClick = () => {
@@ -90,7 +88,25 @@ export default function Navbar() {
         Account
       </button>
     );
-  }
+  };
+
+  //My Favorites Cafe Btn
+  const MyFavoriteBtn = () => {
+    return (
+      <Link to={"/browse/favorite"} className={styles.navBtn}>
+        Favorites
+      </Link>
+    );
+  };
+
+  //My Store Btn
+  const MyStoreBtn = () => {
+    return (
+      <Link to={"/store"} className={styles.navBtn}>
+        My Store
+      </Link>
+    );
+  };
 
   return (
     <div className={styles.navbarContainer}>
@@ -101,8 +117,12 @@ export default function Navbar() {
         About
       </button>
       {/* <button className={styles.navBtn}>All Cafe</button> */}
-      <button className={styles.navBtn} onClick={handleBrowseAll}>Book Now</button>
-      {isAuthenticated && <AccountBtn/>}
+      <button className={styles.navBtn} onClick={handleBrowseAll}>
+        Book Now
+      </button>
+      {isAuthenticated && <MyFavoriteBtn />}
+      {isAuthenticated && <MyStoreBtn />}
+      {isAuthenticated && <AccountBtn />}
       <button className={styles.btn} onClick={handleLoginClick}>
         {isAuthenticated ? "Logout" : "Login"}
       </button>
