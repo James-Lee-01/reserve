@@ -1,0 +1,86 @@
+.container {
+  // outline: 1px solid orange;
+  width: 360px;
+  height: min-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 0.7961918735236395px 2.3885756205709185px -0.625px rgba(0, 0, 0, 0.05), 0px 2.414506143104518px 7.2435184293135535px -1.25px rgba(0, 0, 0, 0.05), 0px 6.382653521484461px 19.147960564453385px -1.875px rgba(0, 0, 0, 0.05), 0px 20px 60px -2.5px rgba(0, 0, 0, 0.05);
+  min-width: 100px;
+  border-radius: 20px;
+
+  .cafeCover {
+    flex-shrink: 0;
+    max-width: 100%;
+    height: 270px;
+    aspect-ratio: 1.33/1;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+    overflow: hidden;
+    position: relative;
+    border-radius: 20px 20px 0px 0px;
+  }
+
+  .contentContainer {
+    box-sizing: border-box;
+    flex-shrink: 0;
+    width: 89%;
+    height: 220px;
+    /* 219px */
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: flex-start;
+    padding: 16px 24px;
+    position: relative;
+    align-content: flex-start;
+    flex-wrap: nowrap;
+
+    h3 {
+      margin: 8px 0;
+
+      &.cafeName {
+        color: #087E8B;
+      }
+    }
+
+    p {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      word-break: break-word;
+      overflow: visible;
+      font-weight: 500;
+      font-family: "Inter", sans-serif;
+      color: #666666;
+      letter-spacing: 0em;
+      // line-height: 1.6;
+
+      margin: 0px;
+    }
+
+    .cafeCity {
+      // outline: 1px solid green;
+      padding: 0 8px;
+      background-color: #087E8B;
+      border-radius: 50px;
+      margin: 8px 0;
+
+      p {
+        color: #ffffff;
+      }
+    }
+  }
+
+  .link {
+    text-decoration: none;
+  }
+
+  .btnContainer {
+    // outline: 2px solid orange;
+    display: flex;
+    gap: 2rem;
+    margin: 16px 0;
+  }
+}
