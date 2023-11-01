@@ -1,0 +1,27 @@
+.container {
+  // width: 100%;
+  height: fit-content;
+  background-color: #0A7E8B;
+  color: #fff;
+  padding: 100px;
+  
+  .textContent {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    .title {
+        margin: 0;
+        font-family: "Goblin One", sans-serif;
+        font-size: 36px;
+      }
+    
+      .text {
+        p {
+          margin: 0 24px;
+          font-family: "Inter", sans-serif;
+          font-size: 24px;
+        }
+      }
+  }
+  
+}
