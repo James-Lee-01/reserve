@@ -7,6 +7,7 @@ import LandingPage from './pages/LandingPage/LandingPage';
 import AccountPage from './pages/AccountPage/AccountPage';
 import FavoritePage from './pages/FavoritePage/FavoritePage'
 import StorePage from './pages/StorePage/StorePage'
+import StoreTimePage from './pages/StoreTimePage/StoreTimePage'
 import StoreEditPage from './pages/StoreEditPage/StoreEditPage';
 import StoreReservationPage from './pages/StoreReservationPage/StoreReservationPage';
 import { AuthProvider } from './contexts/AuthContext';
@@ -34,6 +35,9 @@ function App() {
         }/>
         <Route path='/store' element={
           <StorePage/>
+        }/>
+        <Route path='/store/time/:id' element={
+          <StoreTimePage/>
         }/>
         <Route path='/store/edit/:id' element={
           <StoreEditPage/>
