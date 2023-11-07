@@ -79,7 +79,7 @@ export default function StorePage() {
       <div className={styles.container}>
         <h1 className={styles.cardWrapperTitle}>Your Cafe</h1>
         <div className={styles.cardWrapper}>
-          {/* {notFound ? <NotFoundComponent /> : currentPageCards} */}
+          {notFound ? <NotFoundComponent /> : currentPageCards}
           {<StoreCard />}
         </div>
       </div>
