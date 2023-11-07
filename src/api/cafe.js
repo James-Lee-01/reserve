@@ -89,3 +89,92 @@ export const getOwnCafes = async () => {
     return error
   }
 }
+
+//get cafe all reservations
+export const getCafeResvs = async (cafeId) => {
+  try {
+    const { data } = await axiosInstance.get(`/reservations/${cafeId}`)
+    console.log(data)
+    return data
+  } catch (error) {
+    console.error('[getCafeResvs Failed]', error)
+    return error
+  }
+}
+
+//Store Delete Reservation
+export const deleteResv = async (id) => {
+  try {
+    const { data } = await axiosInstance.delete(`/reservations/${id}`)
+    console.log(data.status)
+    return data
+  } catch (error) {
+    console.error('[deleteResv Failed]', error)
+    return
+  }
+}
+
+//post new cafe
+export const postCafe = async (cafeData) => {
+  try {
+    const { data } = await axiosInstance.post('/cafes', cafeData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+    console.log(data)
+    return data
+  } catch (error) {
+    console.error('[postCafe Failed]:', error);
+    return error
+  }
+};
+
+//post new cafe times
+export const postTimes = async ({cafeId, timeslots}) => {
+  try {
+    const { data } = await axiosInstance.post('/times/bulk', {
+      cafeId,
+      timeslots,
+    });
+    console.log(data)
+    return data
+  } catch (error) {
+    console.error('[postTime Failed]:', error);
+    return error
+  }
+};
+
+//post new cafe seat
+export const postTables = async ({cafeId, tables}) => {
+  try {
+    const { data } = await axiosInstance.post('/tables/bulk', {
+      cafeId,
+      tables,
+      });
+    console.log(data)
+    return data
+  } catch (error) {
+    console.error('[postTables Failed]:', error);
+    return error
+  }
+};
+
+//Update store info
+export const putCafe = async (formData, id) => {
+  try {
+    const { data } = await axiosInstance.put(`/cafes/${id}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    return data
+  } catch (error) {
+    console.log("[putCafe Failed]:", error);
+    return error
+  }
+
+};
