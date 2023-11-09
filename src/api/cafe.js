@@ -1,7 +1,7 @@
 import axios from 'axios'
 //baseUrl
-const baseUrl = 'https://localhost:3001'
-// const baseUrl = 'https://cafe-reservation-6f0a1b76e65e.herokuapp.com/api'
+// const baseUrl = 'https://localhost:3001'
+const baseUrl = 'https://cafe-reservation-6f0a1b76e65e.herokuapp.com/api'
 
 //////////axiosInstance/////////////
 const axiosInstance = axios.create({
@@ -269,6 +269,21 @@ export const deleteTable = async (id) => {
     return data
   } catch (error) {
     console.error('[deleteTable Failed]', error)
+    return error
+  }
+}
+
+//empty time
+export const postEmptyTime = async ({id, startDate, seat,}) => {
+  try {
+    const { data } = await axiosInstance.post(`/cafes/${id}/empty`, {
+      startDate, 
+      seat,
+    })
+    console.log(data)
+    return data
+  } catch (error) {
+    console.error('[postEmptyTime Failed]', error)
     return error
   }
 }

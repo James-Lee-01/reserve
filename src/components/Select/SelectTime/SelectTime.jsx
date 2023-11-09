@@ -5,7 +5,7 @@ import Select from "@mui/material/Select";
 
 import { useState } from "react";
 
-export default function BasicSelect({variant, timeSlot}) {
+export default function SelectTime({variant, timeSlot}) {
   const [time, setTime] = useState("");
 
   // //Without API Calls

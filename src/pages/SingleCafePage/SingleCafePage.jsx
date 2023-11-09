@@ -63,7 +63,7 @@ export default function SingleCafePage() {
     const getCafeData = async () => {
       try {
         const data = await getCafe(id);
-        console.log(id)
+        // console.log(id)
         if (data.status === "success") {
           setCafeData(data);
           setShowFavoriteIcon(data.isFavorited);
@@ -129,7 +129,7 @@ export default function SingleCafePage() {
         </div>
       </div>
       <Carousel ref={carouselRef} images={[menu1, menu2, menu3, menu4, menu5]} />
-      {/* <Booking ref={bookingRef} /> */}
+      <Booking ref={bookingRef} />
       <Footer />
     </>
   );

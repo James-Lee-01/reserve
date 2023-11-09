@@ -3,10 +3,15 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function BasicSelect({ variant, tableSlot }) {
+export default function SelectTable({ variant, tableSlot, onSeatSelect }) {
   const [table, setTable] = useState("");
+
+  useEffect(() => {
+    // 在座位更改時呼叫 onSeatSelect
+    onSeatSelect(table);
+  }, [table]);
 
   const handleChange = (event) => {
     setTable(event.target.value);

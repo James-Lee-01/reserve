@@ -8,9 +8,13 @@ import { TextField } from '@mui/material'
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { useState, forwardRef } from 'react';
+import { useState, useEffect, forwardRef } from 'react';
+import { useParams } from 'react-router-dom'
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+// import { getSeats } from '../../api/time'
+import { getTables, postEmptyTime } from "../../api/cafe";
 
 const themeDatePicker = createTheme({
   palette: {
@@ -112,12 +116,30 @@ const themeDatePicker = createTheme({
 
 
 const Booking = forwardRef((props, ref) => {
-  const [value, setValue] = useState(null)
-  const [phone, setPhone] = useState('')
+  const { id } = useParams();
+  const [value, setValue] = useState(null);
+  const [phone, setPhone] = useState("");
 
+  //for Table slots
+  const [tableSlot, setTableSlot] = useState([]);
+  const [selectedSeat, setSelectedSeat] = useState(null);
+
+  useEffect(() => {
+    const fetchSeats = async () => {
+      try {
+        const seatsData = await getTables(id);
+        const seats = seatsData.map((table) => table.seat);
+        setTableSlot(seats);
+      } catch (error) {
+        console.error("Error fetching seats from API: ", error);
+      }
+    };
+
+    fetchSeats();
+  }, []);
 
   const tomorrow = dayjs().add(1, "day");
-  const nextWeek = dayjs().add(7, 'day')
+  const nextWeek = dayjs().add(7, "day");
 
   const handleNumber = (event) => {
     const val = event.target.value;
@@ -129,9 +151,35 @@ const Booking = forwardRef((props, ref) => {
     setPhone(val);
   };
 
-  
+  // 新增函數處理座位選擇
+  const handleSeatSelect = async (selectedSeat) => {
+    try {
+      // 取得當前日期
+      const currentDate = dayjs().format("YYYY-MM-DD");
+      // 將選擇的座位及當天的日期包裝成一個物件
+      const selectedData = {
+        seat: selectedSeat,
+        startDate: currentDate,
+      };
 
-  const handleSubmit = (event) => {}
+      // 更新選擇的座位
+      setSelectedSeat(selectedData);
+
+      // 發送 API 請求
+      const emptyTimeData = await postEmptyTime({
+        id: id, // 咖啡廳 ID
+        startDate: currentDate,
+        seat: selectedSeat,
+      });
+
+      console.log("API Response:", emptyTimeData);
+      // 在這裡處理 API 回傳的資料，例如更新 UI 或顯示成功訊息等
+    } catch (error) {
+      console.error("Error submitting booking:", error);
+    }
+  };
+
+  const handleSubmit = (event) => {};
 
   return (
     <div ref={ref}>
@@ -166,8 +214,12 @@ const Booking = forwardRef((props, ref) => {
                       },
                     }}
                   />
-                  <SelectTime className={styles.timePicker} />
-                  <SelectTable className={styles.tablePicker} />
+                  <SelectTable
+                    className={styles.tablePicker}
+                    tableSlot={tableSlot}
+                    onSeatSelect={handleSeatSelect}
+                  />
+                  {/* <SelectTime className={styles.timePicker} /> */}
                 </div>
 
                 <div className={styles.contactWrapper}>
