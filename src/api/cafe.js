@@ -176,5 +176,99 @@ export const putCafe = async (formData, id) => {
     console.log("[putCafe Failed]:", error);
     return error
   }
-
 };
+
+//get cafe all times
+export const getTimes = async (cafeId) => {
+  try {
+    const { data } = await axiosInstance.get(`/times/${cafeId}`)
+    console.log(data)
+    return data
+  } catch (error) {
+    console.error('[getTimes Failed]', error)
+    return error
+  }
+}
+
+//post cafe single time
+export const postTime = async ({cafeId, timeslot}) => {
+  try {
+    const { data } = await axiosInstance.post(`/times`, {
+      cafeId, 
+      timeslot,
+    })
+    console.log(data)
+    return data
+  } catch (error) {
+    console.error('[postTime Failed]', error)
+    return error
+  }
+}
+
+//delete cafe single time
+export const deleteTime = async (id) => {
+  try {
+    const { data } = await axiosInstance.delete(`/times/${id}`)
+    console.log(data)
+    return data
+  } catch (error) {
+    console.error('[deleteTime Failed]', error)
+    return error
+  }
+}
+
+//get cafe all tables
+export const getTables = async (cafeId) => {
+  try {
+    const { data } = await axiosInstance.get(`/tables/${cafeId}`)
+    console.log(data)
+    return data
+  } catch (error) {
+    console.error('[getTables Failed]', error)
+    return error
+  }
+}
+
+//Change cafe single table count
+export const putTable = async ({count, id}) => {
+  console.log(`[putTable`, count, id)
+  try {
+    const { data } = await axiosInstance.put(`/tables/${id}`,
+      {
+        count,
+      }
+    );
+    return data
+  } catch (error) {
+    console.log("[putTable Failed]:", error);
+    return error
+  }
+};
+
+//Add cafe single time
+export const postTable = async ({cafeId, seat, count}) => {
+  try {
+    const { data } = await axiosInstance.post(`/tables`, {
+      cafeId, 
+      seat,
+      count,
+    })
+    console.log(data)
+    return data
+  } catch (error) {
+    console.error('[postTable Failed]', error)
+    return error
+  }
+}
+
+//delete cafe single time
+export const deleteTable = async (id) => {
+  try {
+    const { data } = await axiosInstance.delete(`/tables/${id}`)
+    console.log(data)
+    return data
+  } catch (error) {
+    console.error('[deleteTable Failed]', error)
+    return error
+  }
+}
