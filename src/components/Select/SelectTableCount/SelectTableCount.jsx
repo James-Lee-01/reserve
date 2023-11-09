@@ -3,7 +3,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-import { useState } from 'react'
+import { useState, useEffect } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const themePicker = createTheme({
@@ -71,8 +71,14 @@ const themePicker = createTheme({
   },
 });
 
-export default function SelectTableCount({ seatFor, count, onCountChange }) {
-  const [tableCount, setTableCount] = useState(count);
+export default function SelectTableCount({ id, seatFor, count, onCountChange }) {
+  const [tableCount, setTableCount] = useState(0);
+
+  useEffect(() => {
+    if (count !== undefined) {
+      setTableCount(count);
+    }
+  }, [count]);
 
   const handleChange = (event) => {
     const count = event.target.value
@@ -85,12 +91,12 @@ export default function SelectTableCount({ seatFor, count, onCountChange }) {
   return (
     <ThemeProvider theme={themePicker}>
       <FormControl sx={{ m: 1, width: 150 }}>
-        <InputLabel id='demo-simple-select-label'>
+        <InputLabel id={`demo-simple-select-label-${id}`}>
           Seat for {seatFor}
         </InputLabel>
         <Select
-          labelId='demo-simple-select-label'
-          id='demo-simple-select'
+          labelId={`demo-simple-select-label-${id}`}
+          id={`${id}`}
           value={tableCount}
           label={`Seat for ${seatFor}`}
           onChange={handleChange}
