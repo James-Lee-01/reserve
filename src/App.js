@@ -12,12 +12,15 @@ import StoreEditPage from './pages/StoreEditPage/StoreEditPage';
 import StoreReservationPage from './pages/StoreReservationPage/StoreReservationPage';
 import { AuthProvider } from './contexts/AuthContext';
 
+// const basename = process.env.PUBLIC_URL;
+const basename = process.env.PUBLIC_URL;
+
 function App() {
   
 
   return (
     <div className="App">
-      <BrowserRouter>
+      <BrowserRouter basename={basename}>
       <AuthProvider>
       <Routes>
         <Route path='*' element={
