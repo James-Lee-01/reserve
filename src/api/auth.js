@@ -1,7 +1,7 @@
 import axios from 'axios'
 //baseUrl
-const baseUrl = 'https://localhost:3001'
-// const baseUrl = 'https://cafe-reservation-6f0a1b76e65e.herokuapp.com/api'
+// const baseUrl = 'https://localhost:3001'
+const baseUrl = 'https://cafe-reservation-6f0a1b76e65e.herokuapp.com/api'
 
 //////////axiosInstance/////////////
 const axiosInstance = axios.create({
@@ -35,12 +35,14 @@ export const userLogin = async ({ email, password }) => {
     const status = data.status
     const authToken = data.token
     const message = data.message
+    const role = data.role
 
     //若角色符合user
     if (status === 'success') {
       // console.log(status)
       // console.log(authToken)
-      return { success: true, authToken, message}
+      // console.log(data)
+      return { success: true, authToken, message, role}
     } else {
       //顯示錯誤訊息(暫時)
       console.error('帳號不存在')
@@ -64,6 +66,37 @@ export const userSignUp = async ({ name, email, password, checkPassword }) => {
     return data
   } catch (error) {
     console.error('[SignUp Failed]', error)
+    return error
+  }
+}
+
+
+//Get User Info Data
+export const getUser = async (userId) => {
+  try {
+    const { data } = await axiosInstance.get(`/users/${userId}`)
+    if (data)
+    return data
+  } catch (error) {
+    console.error('[Get user info Failed], error')
+    return error
+  }
+}
+
+
+//Setting user account
+export const putAccount = async ({ name, email, password, checkPassword, userId }) => {
+  try {
+    const { data } = await axiosInstance.put(`/users/${userId}/account`, {
+      name,
+      email,
+      password,
+      checkPassword,
+    })
+    return data
+  } catch (error) {
+    console.error('[Set account Failed]', error)
+    console.log(error.message)
     return error
   }
 }

@@ -1,6 +1,6 @@
 import styles from './Input.module.scss'
 
-export default function Input({type, placeholder, value, onChange} ) {
+export default function Input({ type, placeholder, value, onChange, required }) {
   return (
     <input
       className={styles.input}
@@ -8,6 +8,7 @@ export default function Input({type, placeholder, value, onChange} ) {
       placeholder={placeholder}
       value={value}
       onChange={(event) => onChange?.(event.target.value)}
+      required={required}
     />
   );
 }

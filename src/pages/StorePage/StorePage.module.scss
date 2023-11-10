@@ -7,14 +7,11 @@
   padding: 80px 0 0;
 }
 
-.browseBar {
-  // outline: 2px solid red;
-  display: block;
-  margin: 4rem auto 1rem;
-  // width: 100%;
-  background-color: #0A7E8B;
-  padding: 1rem 2rem;
-  border-radius: 50px;
+.cardWrapperTitle {
+  margin-top: 2rem;
+  font-family: "Goblin One", sans-serif;
+  color: #0A7E8B;
+  font-size: 36px;
 }
 
 .cardWrapper {
@@ -26,27 +23,27 @@
   // flex-direction: row;
   // justify-content: center;
   // align-items: center;
-  padding: 50px 40px;
+  padding: 40px 40px;
   // position: relative;
   // flex-wrap: wrap;
   // overflow: visible;
   // gap: 48px;
 
   display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 48px;
-  
-    @media (max-width: 1200px) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  
-    @media (max-width: 800px) {
-      grid-template-columns: 1fr;
-    }
-  
-    .link {
-      text-decoration: none;
-    }
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+  }
+
+  .link {
+    text-decoration: none;
+  }
 }
 
 .navigator {

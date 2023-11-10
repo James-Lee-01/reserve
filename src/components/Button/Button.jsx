@@ -3,6 +3,9 @@ import { Button } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import SearchIcon from "@mui/icons-material/Search";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import EditIcon from "@mui/icons-material/Edit";
 
 const theme = createTheme({
   palette: {
@@ -12,17 +15,26 @@ const theme = createTheme({
     secondary: {
       main: "#c81d25",
     },
+    third: {
+      main: "#ffffff"
+    },
   },
 });
 
 
-export default function Btn({ text, color, size, href, onClick, iconType, endIcon }) {
+export default function Btn({ text, color, size, href, onClick, iconType, endIcon, disabled }) {
   const renderIcon = (type) => {
     switch (type) {
       case "favorite":
         return <FavoriteIcon />;
       case "unFavorite":
         return <FavoriteBorderIcon />;
+      case "search":
+        return <SearchIcon />;
+      case "loading":
+        return <MoreHorizIcon />;
+      case "edit":
+        return <EditIcon />;
       default:
         return null;
     }
@@ -37,7 +49,8 @@ export default function Btn({ text, color, size, href, onClick, iconType, endIco
         href={href}
         onClick={onClick}
         startIcon={renderIcon(iconType)}
-        endIcon={endIcon}
+        endIcon={renderIcon(endIcon)}
+        disabled={disabled}
       >
         {text}
       </Button>

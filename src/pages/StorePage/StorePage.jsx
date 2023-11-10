@@ -1,23 +1,24 @@
-import styles from './BrowsePage.module.scss'
-import Navbar from '../../components/Navbar/Navbar'
-import BrowseBar from '../../components/BrowseBar/BrowseBar'
-import Card from '../../components/Card/Card'
-import Pagination from '../../components/Pagination/Pagination'
-import Footer from '../../components/Footer/Footer'
-// import SearchBar from '../../components/SearchBar/SearchBar'
-import { Link } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import { getAllCafes, postSearch } from "../../api/cafe";
+import styles from './StorePage.module.scss'
+import Navbar from "../../components/Navbar/Navbar";
+import StoreCard from "../../components/StoreCard/StoreCard";
+import Pagination from "../../components/Pagination/Pagination";
+import AddCafe from '../../components/AddCafe/AddCafe';
+import Footer from "../../components/Footer/Footer";
+import { useState, useEffect } from "react";
+import { getOwnCafes } from "../../api/cafe";
 
-export default function BrowsePage() {
+
+//畫面安排：先店家卡片(卡片下方按鈕連結到編輯店家or訂單頁)，底層再新增店家
+
+export default function StorePage() {
   const [cardSlot, setCardSlot] = useState([]);
   const [notFound, setNotFound] = useState(false);
 
   //render all cafes
   useEffect(() => {
-    const generateAllCafes = async () => {
+    const generateMyCafes = async () => {
       try {
-        const cardData = await getAllCafes();
+        const cardData = await getOwnCafes();
         if (cardData.length > 0) {
           setCardSlot(cardData);
         } else {
@@ -25,20 +26,15 @@ export default function BrowsePage() {
           setNotFound(true);
         }
       } catch (error) {
-        console.log(`[Get cards failed]`, error);
+        console.log(`[Get my cafes failed]`, error);
       }
     };
 
-    generateAllCafes();
+    generateMyCafes();
   }, []);
 
   const cards = cardSlot.map((cardData) => (
-    <Link
-      to={`/browse/single/cafe/${cardData.id}`}
-      key={cardData.id}
-      className={styles.link}
-    >
-      <Card
+      <StoreCard
         key={cardData.id}
         id={cardData.id}
         cover={cardData.cover}
@@ -46,7 +42,6 @@ export default function BrowsePage() {
         city={cardData.city}
         intro={cardData.intro}
       />
-    </Link>
   ));
 
   //Pagination count
@@ -78,31 +73,14 @@ export default function BrowsePage() {
     );
   }
 
-  // 新增處理搜尋的函數
-  const handleSearch = async (searchCriteria) => {
-    try {
-      const searchData = await postSearch(searchCriteria);
-      if (searchData.length > 0) {
-        setCardSlot(searchData);
-        setNotFound(false);
-      } else {
-        setCardSlot([]);
-        setNotFound(true);
-      }
-    } catch (error) {
-      console.error(`[Search failed]`, error);
-    }
-  };
-
   return (
     <>
       <Navbar />
       <div className={styles.container}>
-        <div className={styles.browseBar}>
-          <BrowseBar onSearch={handleSearch} />
-        </div>
+        <h1 className={styles.cardWrapperTitle}>Your Cafe</h1>
         <div className={styles.cardWrapper}>
           {notFound ? <NotFoundComponent /> : currentPageCards}
+          {/* {<StoreCard />} */}
         </div>
       </div>
       <div className={styles.navigator}>
@@ -114,6 +92,7 @@ export default function BrowsePage() {
           />
         )}
       </div>
+      <AddCafe/>
       <Footer />
     </>
   );

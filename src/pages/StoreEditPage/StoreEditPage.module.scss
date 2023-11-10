@@ -1,0 +1,102 @@
+.container {
+  // width: 100%;
+  height: fit-content;
+  background-color: #0A7E8B;
+  color: #fff;
+  padding: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .textContent {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .title {
+      margin: 0;
+      margin-top: 2rem;
+      font-family: "Goblin One", sans-serif;
+      font-size: 36px;
+    }
+
+    .text {
+      p {
+        margin: 0 24px;
+        font-family: "Inter", sans-serif;
+        font-size: 24px;
+      }
+    }
+  }
+
+}
+
+.inputWrapper {
+  // outline: 2px solid white;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin: 2rem 0;
+
+  p {
+    margin: 0.5rem 0;
+  }
+
+  .textField {
+    z-index: 0;
+  }
+}
+
+
+
+.imagesWrapper {
+  // outline: 2px solid sienna;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  .selectedImage {
+    width: 300px;
+  }
+
+  .fileInput {
+    display: none;
+  }
+
+  .photoImages,
+  .menuImages {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    p {
+      margin: 0.5rem 0;
+      font-size: 16px;
+      font-weight: 700;
+    }
+  }
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+
+  .loadingButton {
+    animation: spin 1.5s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+.submitButton {
+  // outline: 1px solid green;
+  margin: 2rem 0;
+}

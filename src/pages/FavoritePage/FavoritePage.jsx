@@ -1,13 +1,14 @@
-import styles from './BrowsePage.module.scss'
-import Navbar from '../../components/Navbar/Navbar'
-import BrowseBar from '../../components/BrowseBar/BrowseBar'
-import Card from '../../components/Card/Card'
-import Pagination from '../../components/Pagination/Pagination'
-import Footer from '../../components/Footer/Footer'
+import styles from './FavoritePage.module.scss'
+
+import Navbar from "../../components/Navbar/Navbar";
+// import BrowseBar from "../../components/BrowseBar/BrowseBar";
+import Card from "../../components/Card/Card";
+import Pagination from "../../components/Pagination/Pagination";
+import Footer from "../../components/Footer/Footer";
 // import SearchBar from '../../components/SearchBar/SearchBar'
-import { Link } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import { getAllCafes, postSearch } from "../../api/cafe";
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { getFavoriteCafes } from "../../api/cafe";
 
 export default function BrowsePage() {
   const [cardSlot, setCardSlot] = useState([]);
@@ -15,9 +16,9 @@ export default function BrowsePage() {
 
   //render all cafes
   useEffect(() => {
-    const generateAllCafes = async () => {
+    const generateAllFavoriteCafes = async () => {
       try {
-        const cardData = await getAllCafes();
+        const cardData = await getFavoriteCafes();
         if (cardData.length > 0) {
           setCardSlot(cardData);
         } else {
@@ -25,11 +26,11 @@ export default function BrowsePage() {
           setNotFound(true);
         }
       } catch (error) {
-        console.log(`[Get cards failed]`, error);
+        console.log(`[Get favorites failed]`, error);
       }
     };
 
-    generateAllCafes();
+    generateAllFavoriteCafes();
   }, []);
 
   const cards = cardSlot.map((cardData) => (
@@ -78,29 +79,13 @@ export default function BrowsePage() {
     );
   }
 
-  // 新增處理搜尋的函數
-  const handleSearch = async (searchCriteria) => {
-    try {
-      const searchData = await postSearch(searchCriteria);
-      if (searchData.length > 0) {
-        setCardSlot(searchData);
-        setNotFound(false);
-      } else {
-        setCardSlot([]);
-        setNotFound(true);
-      }
-    } catch (error) {
-      console.error(`[Search failed]`, error);
-    }
-  };
-
   return (
     <>
       <Navbar />
       <div className={styles.container}>
-        <div className={styles.browseBar}>
-          <BrowseBar onSearch={handleSearch} />
-        </div>
+        {/* <div className={styles.browseBar}>
+          <BrowseBar />
+        </div> */}
         <div className={styles.cardWrapper}>
           {notFound ? <NotFoundComponent /> : currentPageCards}
         </div>

@@ -3,26 +3,30 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function BasicSelect() {
+export default function SelectTable({ variant, tableSlot, onSeatSelect }) {
   const [table, setTable] = useState("");
+
+  useEffect(() => {
+    // 在座位更改時呼叫 onSeatSelect
+    onSeatSelect(table);
+  }, [table]);
 
   const handleChange = (event) => {
     setTable(event.target.value);
   };
 
-  const selectTable = [1, 2, 4, 6]
-    .map((value, index) => {
-      return (
-        <MenuItem key={index} value={value}>
-          {value}
-        </MenuItem>
-      );
-    });
+  const selectTable = tableSlot.map((tableSlot, index) => {
+    return (
+      <MenuItem key={index} value={tableSlot}>
+        {tableSlot}
+      </MenuItem>
+    );
+  });
 
   return (
-    <FormControl variant='filled' sx={{ minWidth: 120 }}>
+    <FormControl variant={variant || "filled"} sx={{ minWidth: 120 }}>
       <InputLabel id='table-select-label'>Table for</InputLabel>
       <Select
         labelId='table-select-label'
