@@ -64,7 +64,7 @@ export function AuthProvider({ children }) {
 
   //針對登入的驗證
   async function login({ email, password }) {
-    const { success, authToken, message } = await userLogin({
+    const { success, authToken, message, role } = await userLogin({
       email,
       password,
     });
@@ -81,20 +81,20 @@ export function AuthProvider({ children }) {
         setPayload(tempPayload);
 
         localStorage.setItem("authToken", authToken);
-        return { success: true, message };
+        return { success: true, message, role };
       } else {
         // 返回 JWT 解碼失敗的錯誤訊息
         console.error("JWT 解碼錯誤");
         setIsAuthenticated(false);
         setPayload(null);
-        return { success: false, message };
+        return { success: false, message, role };
       }
     } catch (error) {
       // 返回 JWT 解碼異常的錯誤訊息
       console.error("JWT 解碼異常:", error);
       setIsAuthenticated(false);
       setPayload(null);
-      return { success: false, message };
+      return { success: false, message, role };
     }
   }
 
