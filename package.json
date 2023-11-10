@@ -1,7 +1,7 @@
 {
   "name": "reserve",
   "version": "0.1.0",
-  "homepage": "https://james-lee-01.github.io/reserve",
+  "homepage": "https://james-lee-01.github.io/reserve/",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.1",
