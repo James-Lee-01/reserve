@@ -80,7 +80,7 @@ export default function StorePage() {
         <h1 className={styles.cardWrapperTitle}>Your Cafe</h1>
         <div className={styles.cardWrapper}>
           {notFound ? <NotFoundComponent /> : currentPageCards}
-          {<StoreCard />}
+          {/* {<StoreCard />} */}
         </div>
       </div>
       <div className={styles.navigator}>

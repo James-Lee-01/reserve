@@ -1,7 +1,7 @@
 import axios from 'axios'
 //baseUrl
-const baseUrl = 'https://localhost:3001'
-// const baseUrl = 'https://cafe-reservation-6f0a1b76e65e.herokuapp.com/api'
+// const baseUrl = 'https://localhost:3001'
+const baseUrl = 'https://cafe-reservation-6f0a1b76e65e.herokuapp.com/api'
 
 //////////axiosInstance/////////////
 const axiosInstance = axios.create({

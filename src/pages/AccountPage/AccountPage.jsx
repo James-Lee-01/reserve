@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../contexts/AuthContext';
 import { getUser, putAccount } from "../../api/auth";
+import { getResvs } from '../../api/cafe'
 
 export default function AccountPage() {
   //Sign Up Button Click
@@ -17,6 +18,8 @@ export default function AccountPage() {
   const [checkPassword, setCheckPassword] = useState("");
   const [error, setError] = useState(null);
   const { currentUser } = useAuthContext();
+  const [reservations, setReservations] = useState([]);
+
   // const navigate = useNavigate();
 
   //取目前使用者的id
@@ -90,9 +93,23 @@ const handleSaveClick = async () => {
 };
 
 //Reservation cards
-const cards = Array(6)
-  .fill()
-  .map((_, index) => <ReservationCard key={index} className={styles.cards}/>);
+
+useEffect(() => {
+  const fetchReservations = async () => {
+    try {
+      const resvsData = await getResvs();
+      setReservations(resvsData);
+    } catch (error) {
+      console.error("Error fetching reservations:", error);
+    }
+  };
+
+  fetchReservations();
+}, []);
+
+const cards = reservations.map((reservation) => (
+  <ReservationCard key={reservation.id} reservation={reservation} />
+));
 
 
   return (

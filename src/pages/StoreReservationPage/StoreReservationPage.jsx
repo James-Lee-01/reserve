@@ -12,6 +12,24 @@ export default function StoreReservationPage() {
   const [notFound, setNotFound] = useState(false);
   const { id } = useParams();
 
+  ////// for Delete Reservation
+  const handleDelete = async (cardId) => {
+    try {
+      const confirmed = window.confirm(
+        "Are you sure you want to delete this reservation?"
+      );
+      if (confirmed) {
+        const result = await deleteResv(cardId);
+        setCardSlot((cards) => {
+          return cards.filter((card) => card.id !== cardId);
+        });
+        console.log(`Delete success： ${cardId}, ${result}`);
+      }
+    } catch (error) {
+      console.error("Delete failed", error);
+    }
+  };
+
   //render all cafes
   useEffect(() => {
     const generateCafeResvs = async () => {
@@ -47,22 +65,6 @@ export default function StoreReservationPage() {
     />
   ));
 
-  ////// for Delete Reservation
-  const handleDelete = async (cardId) => {
-    try {
-      const confirmed = window.confirm("Are you sure you want to delete this reservation?");
-      if (confirmed) {
-        const result = await deleteResv(cardId);
-        setCardSlot((cards) => {
-          return cards.filter((card) => card.id !== cardId);
-        });
-        console.log(`Delete success： ${cardId}, ${result}`);
-      }
-    } catch (error) {
-      console.error("Delete failed", error);
-    }
-  };
-
   ////Not Found notification
   function NotFoundComponent() {
     return (
@@ -80,7 +82,7 @@ export default function StoreReservationPage() {
         <h1 className={styles.cardWrapperTitle}>Reservations</h1>
         <div className={styles.cardWrapper}>
           {notFound ? <NotFoundComponent /> : cards}
-          {
+          {/* {
             <StoreReservationCard
               key={"1"}
               id={"1"}
@@ -93,7 +95,7 @@ export default function StoreReservationPage() {
               note={"test"}
               onDelete={handleDelete}
             />
-          }
+          } */}
         </div>
       </div>
       <Footer />

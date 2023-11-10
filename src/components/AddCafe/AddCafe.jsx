@@ -140,6 +140,8 @@ export default function AddCafe() {
       if (response.status === "success") {
         console.log("Cafe added successfully.");
         navigate(`/store/time/${response.id}`);
+        // 導航後滾動到頁面頂部
+        window.scrollTo(0, 0);
       } else {
         console.error("postCafe failed", cafeData);
       }
@@ -170,8 +172,8 @@ export default function AddCafe() {
     generateCitySlot();
   }, []);
 
-  const handleCityChange = (event) => {
-    setCity(event.target.value); // 設置所選取的城市
+  const handleCityChange = (city) => {
+    setCity(city); // 設置所選取的城市
     console.log(city);
   };
 
@@ -229,8 +231,8 @@ export default function AddCafe() {
                 className={styles.cityPicker}
                 variant={"standard"}
                 citySlot={citySlot}
-                value={city}
-                onChange={handleCityChange}
+                // value={city}
+                onCitySelect={handleCityChange}
                 required
               />
             </div>

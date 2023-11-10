@@ -4,11 +4,21 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import FormHelperText from "@mui/material/FormHelperText";
 
+import { useState, useEffect } from "react";
 
 // import { useState } from "react";
 
-export default function BasicSelect({ variant, citySlot, value, onChange, required }) {
-  // const [city, setCity] = useState("");
+export default function SelectCity({ variant, citySlot, value, onChange, onCitySelect, required }) {
+  const [city, setCity] = useState("");
+
+  useEffect(() => {
+    // 在座位更改時呼叫 onSeatSelect
+    onCitySelect(city);
+  }, [city]);
+
+  const handleChange = (event) => {
+    setCity(event.target.value);
+  };
 
   // const handleChange = (event) => {
   //   setCity(event.target.value);
@@ -38,12 +48,12 @@ export default function BasicSelect({ variant, citySlot, value, onChange, requir
       <Select
         labelId='city-select-label'
         id='city-select'
-        // value={city}
-        value={value}
+        value={city}
+        // value={value}
         label='City'
         autoWidth
         // onChange={handleChange}
-        onChange={onChange}
+        onChange={handleChange}
       >
         {citySlot.map((citySlot, index) => (
           <MenuItem key={index} value={citySlot}>

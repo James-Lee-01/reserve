@@ -287,3 +287,51 @@ export const postEmptyTime = async ({id, startDate, seat,}) => {
     return error
   }
 }
+
+//reservation
+export const postResv = async ({cafeId, date, timeslot, seat, tel, note,}) => {
+  try {
+    const { data } = await axiosInstance.post(`/reservations`, {
+      cafeId,
+      date, 
+      timeslot,
+      seat,
+      tel,
+      note,
+    })
+    console.log(data)
+    return data
+  } catch (error) {
+    console.error('[postResv Failed]', error)
+    return error
+  }
+}
+
+//get user reservation
+export const getResvs = async () => {
+  try {
+    const { data } = await axiosInstance.get(`/reservations`)
+    console.log(data)
+    return data
+  } catch (error) {
+    console.error('[getResvs Failed]', error)
+    return error
+  }
+}
+
+//Search
+export const postSearch = async ({ date, timeslot, seat, city,}) => {
+  try {
+    const { data } = await axiosInstance.post(`/cafes/search`, {
+      date, 
+      timeslot,
+      seat,
+      city,
+    })
+    console.log(data)
+    return data
+  } catch (error) {
+    console.error('[postSearch Failed]', error)
+    return error
+  }
+}

@@ -117,10 +117,15 @@ const themeDatePicker = createTheme({
   },
 });
 
-export default function BrowseBar() {
+export default function BrowseBar({onSearch}) {
   const [value, setValue] = useState(null);
+
   const tomorrow = dayjs().add(1, "day");
   const nextWeek = dayjs().add(7, "day");
+  const [selectedTime, setSelectedTime] = useState(null);
+  const [selectedSeat, setSelectedSeat] = useState(null);
+  const [selectedCity, setSelectedCity] = useState(null);
+
   const [timeSlot, setTimeSlot] = useState([]);
   const [tableSlot, setTableSlot] = useState([]);
   const [citySlot, setCitySlot] = useState([]);
@@ -184,6 +189,38 @@ export default function BrowseBar() {
     generateCitySlot();
   }, []);
 
+  // 新增函數處理時間選擇
+  const handleTimeSelect = (selectedTime) => {
+    // 更新選擇的時間
+    setSelectedTime(selectedTime);
+  };
+
+  // 新增函數處理座位選擇
+  const handleSeatSelect = (selectedSeat) => {
+    // 更新選擇的座位
+    setSelectedSeat(selectedSeat);
+  };
+
+  // 新增函數處理城市選擇
+  const handleCitySelect = (selectedCity) => {
+    // 更新選擇的城市
+    setSelectedCity(selectedCity);
+  };
+
+  const handleSearchClick = () => {
+    // 獲取搜尋條件
+    const searchCriteria = {
+      date: value?.format("YYYY-MM-DD"),
+      timeslot: selectedTime,
+      seat: selectedSeat,
+      city: selectedCity,
+    };
+
+    // 將搜尋條件傳遞給父元件
+    onSearch(searchCriteria);
+    console.log(searchCriteria);
+  };
+
   return (
     <ThemeProvider theme={themeDatePicker}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -209,22 +246,26 @@ export default function BrowseBar() {
             className={styles.timePicker}
             variant={"standard"}
             timeSlot={timeSlot}
+            onTimeSelect={handleTimeSelect}
           />
           <SelectTable
             className={styles.tablePicker}
             variant={"standard"}
             tableSlot={tableSlot}
+            onSeatSelect={handleSeatSelect}
           />
           <SelectCity
             className={styles.cityPicker}
             variant={"standard"}
             citySlot={citySlot}
+            onCitySelect={handleCitySelect}
           />
           <Button
             text={"Search"}
             color={"third"}
             size={"small"}
             endIcon={"search"}
+            onClick={handleSearchClick}
           />
         </div>
       </LocalizationProvider>

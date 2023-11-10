@@ -1,6 +1,12 @@
 import styles from "./StoreReservationCard.module.scss";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
+const formatTime = (timeslot) => {
+  // 將 "1000" 轉換為 "10:00"
+  const hours = timeslot.substring(0, 2);
+  const minutes = timeslot.substring(2);
+  return `${hours}:${minutes}`;
+};
 
 export default function StoreReservationCard({
   id,
@@ -26,7 +32,7 @@ export default function StoreReservationCard({
       <div className={styles.contentContainer}>
         <h2 className={styles.reserveDate}>{date || "Date"}</h2>
         <div className={styles.reserveTime}>
-          <h3>{time || "Time"}</h3>
+          <h3>{formatTime(time) || "Time"}</h3>
         </div>
         <div className={styles.reserveCafe}>
           <h3>Customer Name: </h3>

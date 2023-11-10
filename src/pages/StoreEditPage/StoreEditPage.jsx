@@ -2,6 +2,7 @@ import styles from './StoreEditPage.module.scss'
 import Navbar from "../../components/Navbar/Navbar";
 import TimeSeatEditPage from "../TimeSeatEditPage/TimeSeatEditPage"
 import Footer from "../../components/Footer/Footer";
+import Swal from 'sweetalert2';
 
 import Input from "../../components/Input/Input";
 import SelectCity from "../../components/Select/SelectCity/SelectCity";
@@ -192,6 +193,12 @@ export default function StoreEditPage() {
 
       if (response.status === "success") {
         console.log("Cafe edited successfully.");
+        Swal.fire({
+          title:"Cafe info edited successfully.!",
+          icon: "success",
+
+        });
+
         // navigate(`/store/time/${response.id}`);
       } else {
         console.error("putCafe failed", cafeData);
@@ -223,9 +230,9 @@ export default function StoreEditPage() {
     generateCitySlot();
   }, []);
 
-  const handleCityChange = (event) => {
-    setCity(event.target.value); // 設置所選取的城市
-    console.log(event.target.value);
+  const handleCityChange = (city) => {
+    setCity(city); // 設置所選取的城市
+    console.log(city);
   };
 
   return (
@@ -280,8 +287,8 @@ export default function StoreEditPage() {
                   className={styles.cityPicker}
                   variant={"standard"}
                   citySlot={citySlot}
-                  value={city}
-                  onChange={handleCityChange}
+                  // value={city}
+                  onCitySelect={handleCityChange}
                   required
                 />
               </div>
