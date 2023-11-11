@@ -120,8 +120,8 @@ const themeDatePicker = createTheme({
 export default function BrowseBar({onSearch}) {
   const [value, setValue] = useState(null);
 
-  const tomorrow = dayjs().add(1, "day");
-  const nextWeek = dayjs().add(7, "day");
+  const today = dayjs().add(0, "day");
+  const nextWeek = dayjs().add(6, "day");
   const [selectedTime, setSelectedTime] = useState(null);
   const [selectedSeat, setSelectedSeat] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
@@ -229,7 +229,7 @@ export default function BrowseBar({onSearch}) {
             className={styles.datePicker}
             label='Pick a date'
             value={value}
-            minDate={tomorrow}
+            minDate={today}
             maxDate={nextWeek}
             onChange={(newValue) => setValue(newValue)}
             slotProps={{
