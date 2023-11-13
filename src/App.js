@@ -10,6 +10,7 @@ import StorePage from './pages/StorePage/StorePage'
 import StoreTimePage from './pages/StoreTimePage/StoreTimePage'
 import StoreEditPage from './pages/StoreEditPage/StoreEditPage';
 import StoreReservationPage from './pages/StoreReservationPage/StoreReservationPage';
+import AdminPage from './pages/AdminPage/AdminPage'
 import { AuthProvider } from './contexts/AuthContext';
 
 // const basename = process.env.PUBLIC_URL;
@@ -50,6 +51,9 @@ function App() {
         }/>
         <Route path='account' element={
           <AccountPage/>
+        }/>
+        <Route path='admin' element={
+          <AdminPage/>
         }/>
       </Routes>
       </AuthProvider>
