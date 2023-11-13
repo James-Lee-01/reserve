@@ -140,7 +140,7 @@ export const postTimes = async ({cafeId, timeslots}) => {
     console.log(data)
     return data
   } catch (error) {
-    console.error('[postTime Failed]:', error);
+    console.error('[postTimes Failed]:', error);
     return error
   }
 };

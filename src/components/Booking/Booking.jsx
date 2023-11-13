@@ -155,8 +155,8 @@ const Booking = forwardRef((props, ref) => {
     fetchSeats();
   }, [id]);
 
-  const tomorrow = dayjs().add(1, "day");
-  const nextWeek = dayjs().add(7, "day");
+  const today = dayjs().add(0, "day");
+  const nextWeek = dayjs().add(6, "day");
 
   const handleNumber = (event) => {
     const num = event.target.value;
@@ -377,7 +377,7 @@ const Booking = forwardRef((props, ref) => {
                       className={styles.datePicker}
                       label='Pick a date'
                       value={value}
-                      minDate={tomorrow}
+                      minDate={today}
                       maxDate={nextWeek}
                       onChange={(newValue) => handleDateChange(newValue)}
                       slotProps={{

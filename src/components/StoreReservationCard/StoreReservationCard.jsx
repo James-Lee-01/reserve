@@ -55,7 +55,7 @@ export default function StoreReservationCard({
           </div>
           <div className={styles.reserveNote}>
             <h4>Note:</h4>
-            <p>{note || "note here"}</p>
+            <p>{note}</p>
           </div>
         </div>
       </div>
