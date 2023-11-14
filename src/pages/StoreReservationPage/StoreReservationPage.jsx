@@ -17,17 +17,21 @@ export default function StoreReservationPage() {
   const { id } = useParams();
 
   const navigate = useNavigate();
-  const { isAuthenticated, role } = useAuthContext();
-
+  const { isAuthenticated, role, identified } = useAuthContext();
   //prohibited and redirection
   useEffect(() => {
-    if (role === "admin") {
-      // 如果未驗證或角色不是  user，導向上一頁
-      navigate("/admin");
-    } else if (!isAuthenticated) {
-      navigate("/login");
+    if (identified) {
+      if (role === "admin") {
+        if (!isAuthenticated) {
+          navigate("/login");
+        } else {
+          navigate("/admin");
+        }
+      } else if (!isAuthenticated) {
+        navigate("/login");
+      }
     }
-  }, [isAuthenticated, role, navigate]);
+  }, [isAuthenticated, role, navigate, identified]);
 
   ////// for Delete Reservation
   const handleDelete = async (cardId) => {

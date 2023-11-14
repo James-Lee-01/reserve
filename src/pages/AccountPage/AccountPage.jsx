@@ -21,17 +21,23 @@ export default function AccountPage() {
   const [reservations, setReservations] = useState([]);
 
   const navigate = useNavigate();
-  const { isAuthenticated, role } = useAuthContext();
+  const { isAuthenticated, role, isUserChange, setIsUserChange, identified } =
+    useAuthContext();
 
-  //prohibited and redirection
-  useEffect(() => {
-    if (role === "admin") {
-      // 如果未驗證或角色不是  user，導向上一頁
-      navigate("/admin");
-    } else if (!isAuthenticated) {
-      navigate("/login");
-    }
-  }, [isAuthenticated, role, navigate]);
+    //prohibited and redirection
+    useEffect(() => {
+      if (identified) {
+        if (role === "admin") {
+          if (!isAuthenticated) {
+            navigate("/login");
+          } else {
+            navigate("/admin");
+          }
+        } else if (!isAuthenticated) {
+          navigate("/login");
+        }
+      }
+    }, [isAuthenticated, role, navigate, identified]);
 
 
   //取目前使用者的id
@@ -81,6 +87,7 @@ const handleSaveClick = async () => {
       timer: 1000,
       showConfirmButton: false,
     });
+    await setIsUserChange(!isUserChange)
     return;
   }
 

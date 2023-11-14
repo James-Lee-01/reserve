@@ -8,7 +8,13 @@ import { getUser } from '../../api/auth'
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const { logout, isAuthenticated, currentUser } = useAuthContext();
+  const {
+    logout,
+    isAuthenticated,
+    currentUser,
+    isUserChange,
+    setIsUserChange,
+  } = useAuthContext();
   const [showMoreButtons, setShowMoreButtons] = useState(false);
   const [name, setName] = useState("");
 
@@ -34,8 +40,10 @@ export default function Navbar() {
         console.error("[Get Data Failed]", error);
       }
     };
+
     getUserData();
-  }, [userId]);
+      
+  }, [userId, isUserChange, isAuthenticated]);
 
 
   const handleReserveClick = () => {
@@ -49,11 +57,12 @@ export default function Navbar() {
     }
   };
 
-  const handleLoginClick = () => {
+  const handleLoginClick = async () => {
     if (isAuthenticated) {
       logout();
       navigate("/");
       window.scrollTo(0, 0);
+      setIsUserChange(true);
       Swal.fire({
         toast: true,
         position: "top",

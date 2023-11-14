@@ -24,7 +24,7 @@ export default function LoginPage() {
   };
 
   //從上下文獲取login驗證
-  const { login, isAuthenticated, role } = useAuthContext();
+  const { login, isAuthenticated, role, setIsUserChange } = useAuthContext();
 
   const navigate = useNavigate()
 
@@ -37,6 +37,7 @@ export default function LoginPage() {
     setError(null);
     const data = await login({ email, password });
     if (data.success === true && data.role === 'user') {
+      setIsUserChange(true);
       window.scrollTo({
         top: 0,
       });
@@ -50,6 +51,7 @@ export default function LoginPage() {
       })
       console.log("Login success");
     } else if (data.success === true && data.role === "admin") {
+      setIsUserChange(true);
       Swal.fire({
         toast: true,
         position: "top",
