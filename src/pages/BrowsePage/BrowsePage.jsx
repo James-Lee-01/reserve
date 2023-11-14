@@ -8,10 +8,27 @@ import Footer from '../../components/Footer/Footer'
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { getAllCafes, postSearch } from "../../api/cafe";
+import { useNavigate } from "react-router-dom";
+import { useAuthContext } from '../../contexts/AuthContext'
+
 
 export default function BrowsePage() {
   const [cardSlot, setCardSlot] = useState([]);
   const [notFound, setNotFound] = useState(false);
+
+  const navigate = useNavigate();
+  const { isAuthenticated, role } = useAuthContext();
+
+  //prohibited and redirection
+  useEffect(() => {
+    console.log(role)
+    if (role === "admin") {
+      // 如果未驗證或角色不是  user，導向上一頁
+      navigate("/admin");
+    } else if (!isAuthenticated) {
+      navigate("/login");
+    }
+  }, [isAuthenticated, role, navigate]);
 
   //render all cafes
   useEffect(() => {

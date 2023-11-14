@@ -1,4 +1,5 @@
 import styles from "./StoreReservationPage.module.scss";
+import Swal from "sweetalert2";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import StoreReservationCard from "../../components/StoreReservationCard/StoreReservationCard"
@@ -7,24 +8,60 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getCafeResvs, deleteResv } from "../../api/cafe"
 
+import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../contexts/AuthContext";
+
 export default function StoreReservationPage() {
   const [cardSlot, setCardSlot] = useState([]);
   const [notFound, setNotFound] = useState(false);
   const { id } = useParams();
 
+  const navigate = useNavigate();
+  const { isAuthenticated, role } = useAuthContext();
+
+  //prohibited and redirection
+  useEffect(() => {
+    if (role === "admin") {
+      // 如果未驗證或角色不是  user，導向上一頁
+      navigate("/admin");
+    } else if (!isAuthenticated) {
+      navigate("/login");
+    }
+  }, [isAuthenticated, role, navigate]);
+
   ////// for Delete Reservation
   const handleDelete = async (cardId) => {
     try {
-      const confirmed = window.confirm(
-        "Are you sure you want to delete this reservation?"
-      );
-      if (confirmed) {
-        const result = await deleteResv(cardId);
-        setCardSlot((cards) => {
-          return cards.filter((card) => card.id !== cardId);
-        });
-        console.log(`Delete success： ${cardId}, ${result}`);
-      }
+      // 跳出確認視窗
+      Swal.fire({
+        title: "Do you want to remove this reservation?",
+        icon: "question",
+        showDenyButton: true,
+        confirmButtonText: "Yes",
+        denyButtonText: "Cancel",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            const result = await deleteResv(cardId);
+            setCardSlot((cards) => {
+              return cards.filter((card) => card.id !== cardId);
+            });
+            console.log(`Delete success： ${cardId}`, result);
+            if (result.status === "success") {
+              Swal.fire(result.message, "", "success");
+            } else if (result.message === "Network Error") {
+              Swal.fire(result.message, "", "error");
+            } else {
+              Swal.fire(result.response.data.message, "", "error");
+            }
+          } catch (error) {
+            console.error("deleteResv API 錯誤：", error);
+          }
+        } else if (result.isDenied) {
+          // 如果取消確認，取消勾選
+          console.log("cancel");
+        }
+      });
     } catch (error) {
       console.error("Delete failed", error);
     }

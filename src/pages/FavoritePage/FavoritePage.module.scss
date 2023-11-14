@@ -7,14 +7,21 @@
   padding: 80px 0 0;
 }
 
-.browseBar {
-  // outline: 2px solid red;
-  display: block;
-  margin: 4rem auto 1rem;
-  // width: 100%;
-  background-color: #0A7E8B;
-  padding: 1rem 2rem;
-  border-radius: 50px;
+// .browseBar {
+//   // outline: 2px solid red;
+//   display: block;
+//   margin: 4rem auto 1rem;
+//   // width: 100%;
+//   background-color: #0A7E8B;
+//   padding: 1rem 2rem;
+//   border-radius: 50px;
+// }
+
+.cardWrapperTitle {
+  margin-top: 2rem;
+  font-family: "Goblin One", sans-serif;
+  color: #0A7E8B;
+  font-size: 36px;
 }
 
 .cardWrapper {

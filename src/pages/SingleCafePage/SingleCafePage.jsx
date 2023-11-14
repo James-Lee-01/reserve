@@ -11,6 +11,9 @@ import cafe1 from "../../assets/images/cafe1.jpeg"
 import { getCafe } from "../../api/cafe";
 import { postFavorite, deleteFavorite } from "../../api/cafe";
 
+import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../contexts/AuthContext";
+
 
 // （照片、店名、地區標籤、地圖資訊、地址、電話、詳細介紹、菜單照片）
 // （加入收藏、移除收藏）
@@ -58,6 +61,19 @@ export default function SingleCafePage() {
     }
   }
 
+  const navigate = useNavigate();
+  const { isAuthenticated, role } = useAuthContext();
+
+  //prohibited and redirection
+  useEffect(() => {
+    if (role === "admin") {
+      // 如果未驗證或角色不是  user，導向上一頁
+      navigate("/admin");
+    } else if (!isAuthenticated) {
+      navigate("/login");
+    }
+  }, [isAuthenticated, role, navigate]);
+
   ////render the cafe
   useEffect(() => {
     const getCafeData = async () => {
@@ -77,12 +93,6 @@ export default function SingleCafePage() {
   }, [id]);
 
   const { menu1, menu2, menu3, menu4, menu5 } = cafeData
-
-  // {
-  //  y "status": "success",
-  //   "id": 2,
-  //   "isFavorited": true,
-  // }
 
   return (
     <>

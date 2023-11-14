@@ -10,6 +10,7 @@ const defaultAuthContext = {
   logout: null,
   currentUser: null,
   isAuthenticated: false,
+  role: null,
 };
 
 const AuthContext = createContext(defaultAuthContext);
@@ -18,6 +19,7 @@ export const useAuthContext = () => useContext(AuthContext);
 export function AuthProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [payload, setPayload] = useState(false);
+  const [role, setRole] = useState("");
   const { pathname } = useLocation();
 
   //換路由時驗證token攜帶正確與否
@@ -47,6 +49,8 @@ export function AuthProvider({ children }) {
         if (tempPayload) {
           setIsAuthenticated(true);
           setPayload(tempPayload);
+          setRole(tempPayload.role); // 設置 role
+          console.log(role);
         }
       }
     };
@@ -60,6 +64,7 @@ export function AuthProvider({ children }) {
     //reset state
     setIsAuthenticated(false);
     setPayload(null);
+    setRole(""); // 重置 role
   }
 
   //針對登入的驗證
@@ -79,6 +84,7 @@ export function AuthProvider({ children }) {
       if (tempPayload) {
         setIsAuthenticated(true);
         setPayload(tempPayload);
+        setRole(tempPayload.role); // 設置 role
 
         localStorage.setItem("authToken", authToken);
         return { success: true, message, role };
@@ -87,6 +93,7 @@ export function AuthProvider({ children }) {
         console.error("JWT 解碼錯誤");
         setIsAuthenticated(false);
         setPayload(null);
+        setRole(""); // 重置 role
         return { success: false, message, role };
       }
     } catch (error) {
@@ -94,6 +101,7 @@ export function AuthProvider({ children }) {
       console.error("JWT 解碼異常:", error);
       setIsAuthenticated(false);
       setPayload(null);
+      setRole(""); // 重置 role
       return { success: false, message, role };
     }
   }
@@ -106,6 +114,7 @@ export function AuthProvider({ children }) {
         currentUser: payload,
         login,
         logout,
+        role: role // 取得 role
       }}
     >
       {children}

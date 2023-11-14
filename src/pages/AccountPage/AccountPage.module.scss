@@ -93,9 +93,17 @@
   .reservationContainer {
     // outline: 1px solid green;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 30px 0;
+
+    .cardWrapperTitle {
+        margin-top: 2rem;
+        font-family: "Goblin One", sans-serif;
+        color: #0A7E8B;
+        font-size: 36px;
+      }
 
     .cardWrapper {
       display: grid;

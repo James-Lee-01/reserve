@@ -7,9 +7,11 @@ import SelectTableCount from '../../components/Select/SelectTableCount/SelectTab
 import Button from '../../components/Button/Button'
 
 import { useParams, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { postTimes, postTables } from '../../api/cafe'
+
+import { useAuthContext } from '../../contexts/AuthContext';
 
 
 export default function StoreTimePage() {
@@ -21,6 +23,18 @@ export default function StoreTimePage() {
   const [tablesApiSuccess, setTablesApiSuccess] = useState(false);
   const [timesApiMessage, setTimesApiMessage] = useState(null);
   const [tablesApiMessage, setTablesApiMessage] = useState(null);
+
+  const { isAuthenticated, role } = useAuthContext();
+
+  //prohibited and redirection
+  useEffect(() => {
+    if (role === "admin") {
+      // 如果未驗證或角色不是  user，導向上一頁
+      navigate("/admin");
+    } else if (!isAuthenticated) {
+      navigate("/login");
+    }
+  }, [isAuthenticated, role, navigate]);
 
   const handleTimeSelection = (selectedTimes) => {
     // 在這裡處理所選取的時間，您可以將它傳送到 API
@@ -87,8 +101,8 @@ export default function StoreTimePage() {
     const tables = Object.keys(tableCounts)
       .filter((seat) => tableCounts[seat] > 0)
       .map((seat) => ({
-        seat,
-        count: tableCounts[seat].toString(),
+        seat: Number(seat),
+        count: tableCounts[seat],
       }));
 
     const tablesRequestBody = {

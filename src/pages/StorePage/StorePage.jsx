@@ -7,12 +7,28 @@ import Footer from "../../components/Footer/Footer";
 import { useState, useEffect } from "react";
 import { getOwnCafes } from "../../api/cafe";
 
+import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../../contexts/AuthContext';
+
 
 //畫面安排：先店家卡片(卡片下方按鈕連結到編輯店家or訂單頁)，底層再新增店家
 
 export default function StorePage() {
   const [cardSlot, setCardSlot] = useState([]);
   const [notFound, setNotFound] = useState(false);
+
+  const navigate = useNavigate();
+  const { isAuthenticated, role } = useAuthContext();
+
+  //prohibited and redirection
+  useEffect(() => {
+    if (role === "admin") {
+      // 如果未驗證或角色不是  user，導向上一頁
+      navigate("/admin");
+    } else if (!isAuthenticated) {
+      navigate("/login");
+    }
+  }, [isAuthenticated, role, navigate]);
 
   //render all cafes
   useEffect(() => {
@@ -77,7 +93,7 @@ export default function StorePage() {
     <>
       <Navbar />
       <div className={styles.container}>
-        <h1 className={styles.cardWrapperTitle}>Your Cafe</h1>
+        <h1 className={styles.cardWrapperTitle}>My Cafe</h1>
         <div className={styles.cardWrapper}>
           {notFound ? <NotFoundComponent /> : currentPageCards}
           {/* {<StoreCard />} */}
