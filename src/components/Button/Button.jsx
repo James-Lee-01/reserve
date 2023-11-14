@@ -6,6 +6,8 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import SearchIcon from "@mui/icons-material/Search";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import EditIcon from "@mui/icons-material/Edit";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const theme = createTheme({
   palette: {
@@ -35,6 +37,10 @@ export default function Btn({ text, color, size, href, onClick, iconType, endIco
         return <MoreHorizIcon />;
       case "edit":
         return <EditIcon />;
+      case "trash":
+        return <DeleteForeverIcon />;
+      case "logout":
+        return <LogoutIcon />;
       default:
         return null;
     }

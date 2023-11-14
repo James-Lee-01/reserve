@@ -9,7 +9,7 @@ import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 export default function Footer() {
   return (
     <div className={styles.container}>
-      <div className={styles.tagWrapper}>
+      {/* <div className={styles.tagWrapper}>
         <div className={styles.tagBlock}>
           <ul>
             <h3>Company</h3>
@@ -29,7 +29,7 @@ export default function Footer() {
             <li>My Favorites</li>
           </ul>
         </div>
-      </div>
+      </div> */}
       <div className={styles.iconContainer}>
         <img src={human9} alt='human' />
         <div className={styles.iconWrapper}>

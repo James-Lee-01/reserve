@@ -1,4 +1,5 @@
 import styles from './AddCafe.module.scss'
+import Swal from 'sweetalert2';
 import Input from '../Input/Input';
 import SelectCity from '../Select/SelectCity/SelectCity';
 import { TextField } from '@mui/material';
@@ -144,6 +145,7 @@ export default function AddCafe() {
         window.scrollTo(0, 0);
       } else {
         console.error("postCafe failed", cafeData);
+        Swal.fire(response.response.data.message,"","error");
       }
     } catch (error) {
       console.error("postCafe error", error);
@@ -181,7 +183,7 @@ export default function AddCafe() {
     <ThemeProvider theme={themePicker}>
       <div className={styles.container}>
         <div className={styles.textContent}>
-          <h1 className={styles.title}>Add Your Cafe</h1>
+          <h1 className={styles.title}>Add My Cafe</h1>
           <div className={styles.text}>
             <p>Want to make your café shine?</p>
             <p>Need a smarter way to manage bookings?</p>
@@ -231,7 +233,7 @@ export default function AddCafe() {
                 className={styles.cityPicker}
                 variant={"standard"}
                 citySlot={citySlot}
-                // value={city}
+                value={city}
                 onCitySelect={handleCityChange}
                 required
               />
