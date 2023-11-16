@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-
 import './App.css';
 import BrowsePage from './pages/BrowsePage/BrowsePage';
 import SingleCafePage from './pages/SingleCafePage/SingleCafePage'
@@ -13,12 +12,9 @@ import StoreReservationPage from './pages/StoreReservationPage/StoreReservationP
 import AdminPage from './pages/AdminPage/AdminPage'
 import { AuthProvider } from './contexts/AuthContext';
 
-// const basename = process.env.PUBLIC_URL;
 const basename = process.env.PUBLIC_URL;
 
 function App() {
-  
-
   return (
     <div className="App">
       <BrowserRouter basename={basename}>

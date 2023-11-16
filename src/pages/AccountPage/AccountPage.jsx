@@ -5,7 +5,7 @@ import Input from '../../components/Input/Input'
 import ReservationCard from '../../components/ReservationCard/ReservationCard';
 
 import { useState, useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../contexts/AuthContext';
 import { getUser, putAccount } from "../../api/auth";
 import { getResvs } from '../../api/cafe'
@@ -20,16 +20,28 @@ export default function AccountPage() {
   const { currentUser } = useAuthContext();
   const [reservations, setReservations] = useState([]);
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const { isAuthenticated, role, isUserChange, setIsUserChange, identified } =
+    useAuthContext();
+
+    //prohibited and redirection
+    useEffect(() => {
+      if (identified) {
+        if (role === "admin") {
+          if (!isAuthenticated) {
+            navigate("/login");
+          } else {
+            navigate("/admin");
+          }
+        } else if (!isAuthenticated) {
+          navigate("/login");
+        }
+      }
+    }, [isAuthenticated, role, navigate, identified]);
+
 
   //取目前使用者的id
   const userId = currentUser && currentUser.id;
-  //權限限制與重新導向
-  // useEffect(() => {
-  //   if (!isAuthenticated) {
-  //     navigate("/login");
-  //   }
-  // }, [navigate, isAuthenticated]);
 
   //先取得使用者自身資訊
   useEffect(() => {
@@ -54,8 +66,6 @@ export default function AccountPage() {
     getUserData();
   }, [userId]);
 
-;
-
 const handleSaveClick = async () => {
 
   //data API
@@ -77,6 +87,7 @@ const handleSaveClick = async () => {
       timer: 1000,
       showConfirmButton: false,
     });
+    await setIsUserChange(!isUserChange)
     return;
   }
 
@@ -143,7 +154,7 @@ const cards = reservations.map((reservation) => (
               />
               <Input
                 type='text'
-                placeholder='Name'
+                placeholder='Name (Maximum 20 characters.)'
                 value={nameSignUp}
                 onChange={(nameSignUpInput) => setNameSignUp(nameSignUpInput)}
               />
@@ -169,6 +180,7 @@ const cards = reservations.map((reservation) => (
           </div>
         </div>
         <div className={styles.reservationContainer}>
+          <h1 className={styles.cardWrapperTitle}>My Reservation</h1>
           <div className={styles.cardWrapper}>{cards}</div>
         </div>
       </div>

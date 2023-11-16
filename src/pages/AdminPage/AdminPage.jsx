@@ -12,29 +12,24 @@ export default function AdminPage() {
   const [cardSlot, setCardSlot] = useState([]);
   const [notFound, setNotFound] = useState(false);
   const navigate = useNavigate();
-  const { logout, isAuthenticated, role } = useAuthContext();
+  const { logout, isAuthenticated, role, identified } = useAuthContext();
 
   //prohibited and redirection
   useEffect(() => {
-    if (role === "user") {
-      // 如果未驗證或角色不是  amin，
-      
-      Swal.fire({
-        title: "Unauthorized",
-        icon: "error",
-        showConfirmButton: true,
-      }).then(() => {
-        navigate("/");
-      })
-    } else if (!isAuthenticated) {
-      Swal.fire({
-        title: "Unauthorized",
-        icon: "error",
-        showConfirmButton: false,
-      });
-      navigate("/login");
+    if (identified) {
+      if (role === "user") {
+        Swal.fire({
+          title: "Unauthorized",
+          icon: "error",
+          showConfirmButton: true,
+        }).then(() => {
+          navigate("/");
+        });
+      } else if (!isAuthenticated) {
+        navigate("/login");
+      }
     }
-  }, [isAuthenticated, role, navigate]);
+  }, [isAuthenticated, role, navigate, identified]);
 
 
   ////// for Delete Cafe

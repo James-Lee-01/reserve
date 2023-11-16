@@ -24,7 +24,7 @@ export default function LoginPage() {
   };
 
   //從上下文獲取login驗證
-  const { login, isAuthenticated } = useAuthContext();
+  const { login, isAuthenticated, role, setIsUserChange } = useAuthContext();
 
   const navigate = useNavigate()
 
@@ -37,6 +37,10 @@ export default function LoginPage() {
     setError(null);
     const data = await login({ email, password });
     if (data.success === true && data.role === 'user') {
+      setIsUserChange(true);
+      window.scrollTo({
+        top: 0,
+      });
       Swal.fire({
         toast: true,
         position: "top",
@@ -44,8 +48,20 @@ export default function LoginPage() {
         icon: "success",
         timer: 1500,
         showConfirmButton: false,
-      });
+      })
       console.log("Login success");
+    } else if (data.success === true && data.role === "admin") {
+      setIsUserChange(true);
+      Swal.fire({
+        toast: true,
+        position: "top",
+        title: "Admin Login success",
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false,
+      }).then(() => {
+        navigate('/admin')
+      })
     } else {
       const message = data;
 
@@ -85,7 +101,17 @@ export default function LoginPage() {
         password: passwordSignUp,
       });
       if (loginSuccess) {
-        navigate("/");
+        window.scrollTo({
+          top: 0,
+        });
+        Swal.fire({
+          toast: true,
+          position: "top",
+          title: "Sign Up and Login success",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+        });
       }
     } else {
       const message = JSON.stringify(signUpResult.response.data.message);
@@ -106,11 +132,14 @@ export default function LoginPage() {
 
   // redirection
   useEffect(() => {
-    //確認後導向主頁面
-    if (isAuthenticated) {
+    if (role === "admin") {
+      // 如果未驗證或角色不是  user，導向上一頁
+      navigate("/admin");
+    } else if (isAuthenticated) {
+      //確認後導向主頁面
       navigate("/");
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, navigate, role]);
 
   return (
     <div
@@ -141,10 +170,11 @@ export default function LoginPage() {
         <div className={styles.containWrapper}>
           <p className={styles.title}>Hello, friend!</p>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae,
-            suscipit laboriosam. Est mollitia dolores nisi quisquam, cupiditate
-            perspiciatis recusandae illum! Pariatur quibusdam iure veritatis
-            repudiandae possimus consectetur, in modi porro?
+            Hello friend! Ready to join us? <br />
+            <br />
+            <br />
+            Simply click the link below to register and unlock a world of
+            opportunities with our vibrant community.
           </p>
           <button className={styles.switchBtn} onClick={toggleSwitcher}>
             Sign Up
@@ -156,10 +186,12 @@ export default function LoginPage() {
         <div className={styles.containWrapper}>
           <p className={styles.title}>Welcome back!</p>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae,
-            suscipit laboriosam. Est mollitia dolores nisi quisquam, cupiditate
-            perspiciatis recusandae illum! Pariatur quibusdam iure veritatis
-            repudiandae possimus consectetur, in modi porro?
+            Greetings again! <br />
+            <br />
+            Ready to book your next coffee adventure? <br />
+            <br />
+            Just click the link below to log in and make a reservation for your
+            favorite café spot.
           </p>
           <button className={styles.switchBtn} onClick={toggleSwitcher}>
             Login
@@ -175,7 +207,7 @@ export default function LoginPage() {
           />
           <Input
             type='text'
-            placeholder='Name'
+            placeholder='Name (Maximum 20 characters.)'
             value={nameSignUp}
             onChange={(nameSignUpInput) => setNameSignUp(nameSignUpInput)}
           />

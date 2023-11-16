@@ -16,10 +16,10 @@ import image1 from '../../assets/images/cafe1.jpeg'
 const Carousel = forwardRef(({ images }, ref) => {
   const params = {
     modules: [Pagination, Navigation],
-    slidesPerView: 1.65,
+    slidesPerView: 1,
     // slidesPerView: "auto",
     centeredSlides: true,
-    spaceBetween: 60,
+    // spaceBetween: 10,
     loop: true,
     // touchEventsTarget: 'wrapper',
     pagination: {
@@ -32,40 +32,22 @@ const Carousel = forwardRef(({ images }, ref) => {
     },
   };
 
-  const slides = images.map((image, index) => {
-    return (
-      <SwiperSlide key={index} className={styles.slide}>
-        <img src={image || image1} alt={`${index + 1}`} />
-        <p>{index + 1}</p>
-      </SwiperSlide>
-    );
-  });
+  const slides = images
+    .filter((image) => image !== null && image !== undefined)
+    .map((image, index) => {
+      return (
+        <SwiperSlide key={index} className={styles.slide}>
+          <img src={image} alt={`${index + 1}`} />
+          <p>{index + 1}</p>
+        </SwiperSlide>
+      );
+    });
 
   return (
     <div className={styles.carouselContainer} ref={ref}>
       <Swiper className={styles.swiper} {...params}>
         <div className='swiper-wrapper'>
           {slides}
-          {/* <SwiperSlide className={styles.slide}>
-            <img src={image} alt='Image1' />
-            <p>1</p>
-          </SwiperSlide>
-          <SwiperSlide className={styles.slide}>
-            <img src={image} alt='Image2' />
-            <p>2</p>
-          </SwiperSlide>
-          <SwiperSlide className={styles.slide}>
-            <img src={image} alt='Image3' />
-            <p>3</p>
-          </SwiperSlide>
-          <SwiperSlide className={styles.slide}>
-            <img src={image} alt='Image4' />
-            <p>4</p>
-          </SwiperSlide>
-          <SwiperSlide className={styles.slide}>
-            <img src={image} alt='Image5' />
-            <p>5</p>
-          </SwiperSlide> */}
         </div>
       </Swiper>
     </div>

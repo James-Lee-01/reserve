@@ -17,6 +17,8 @@ import { getCities } from "../../api/cities";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate, useParams } from "react-router-dom";
 
+import { useAuthContext } from '../../contexts/AuthContext';
+
 const themePicker = createTheme({
   palette: {
     primary: {
@@ -86,6 +88,22 @@ export default function StoreEditPage() {
 
   const navigate = useNavigate();
   const { id } = useParams()
+
+  const { isAuthenticated, role, identified } = useAuthContext();
+  //prohibited and redirection
+  useEffect(() => {
+    if (identified) {
+      if (role === "admin") {
+        if (!isAuthenticated) {
+          navigate("/login");
+        } else {
+          navigate("/admin");
+        }
+      } else if (!isAuthenticated) {
+        navigate("/login");
+      }
+    }
+  }, [isAuthenticated, role, navigate, identified]);
 
   ////render the cafe
   useEffect(() => {
@@ -287,7 +305,7 @@ export default function StoreEditPage() {
                   className={styles.cityPicker}
                   variant={"standard"}
                   citySlot={citySlot}
-                  // value={city}
+                  value={city}
                   onCitySelect={handleCityChange}
                   required
                 />

@@ -1,6 +1,12 @@
 import jwt_decode from "jwt-decode";
 import { userLogin } from "../api/auth";
-import { useState, useEffect, createContext, useContext } from "react";
+import {
+  useState,
+  useEffect,
+  createContext,
+  useContext,
+  useRef,
+} from "react";
 import { useLocation } from "react-router-dom";
 
 
@@ -10,6 +16,10 @@ const defaultAuthContext = {
   logout: null,
   currentUser: null,
   isAuthenticated: false,
+  role: null,
+  isUserChange: false,
+  setIsUserChange: () => {},
+  identified: false,
 };
 
 const AuthContext = createContext(defaultAuthContext);
@@ -17,11 +27,19 @@ export const useAuthContext = () => useContext(AuthContext);
 
 export function AuthProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [payload, setPayload] = useState(false);
+  const [payload, setPayload] = useState(null);
+  const [role, setRole] = useState("");
+  const [isUserChange, setIsUserChange] = useState();
+  const [identified, setIdentified] = useState(false)
+
+  const isAuthenticatedRef = useRef(isAuthenticated);
+  const roleRef = useRef(role);
+
   const { pathname } = useLocation();
 
   //換路由時驗證token攜帶正確與否
   useEffect(() => {
+    console.log("isUserChange value:", isUserChange);
     const checkTokenIsValid = async () => {
       const authToken = localStorage.getItem("authToken");
 
@@ -30,24 +48,36 @@ export function AuthProvider({ children }) {
       if (!authToken) {
         setIsAuthenticated(false);
         setPayload(null);
+        setIdentified(true);
         return;
       }
 
-      //若有，確認攜帶的token是否許可
-      if (authToken) {
-        const tempPayload = jwt_decode(authToken);
-        //解碼token檢查
-        //若不許可，返回設定值
-        if (!tempPayload) {
-          setIsAuthenticated(false);
-          setPayload(null);
-          return;
-        }
-        //若許可，認證
-        if (tempPayload) {
+      try {
+        const tempPayload = await jwt_decode(authToken);
+
+        if (tempPayload && tempPayload.role) {
           setIsAuthenticated(true);
           setPayload(tempPayload);
+          setRole(tempPayload.role);
+          isAuthenticatedRef.current = true;
+          roleRef.current = tempPayload.role;
+          setIdentified(true);
+        } else {
+          setIsAuthenticated(false);
+          setPayload(null);
+          setRole("");
+          isAuthenticatedRef.current = false;
+          roleRef.current = "";
+          setIdentified(true);
         }
+      } catch (error) {
+        console.error("JWT 解碼異常:", error);
+        setIsAuthenticated(false);
+        setPayload(null);
+        setRole("");
+        isAuthenticatedRef.current = false;
+        roleRef.current = "";
+        setIdentified(true);
       }
     };
     checkTokenIsValid();
@@ -60,6 +90,7 @@ export function AuthProvider({ children }) {
     //reset state
     setIsAuthenticated(false);
     setPayload(null);
+    setRole(""); // 重置 role
   }
 
   //針對登入的驗證
@@ -74,11 +105,17 @@ export function AuthProvider({ children }) {
       return message;
     }
 
+    setIsUserChange(true); //設置 isUserChange
+
     try {
       const tempPayload = jwt_decode(authToken);
-      if (tempPayload) {
+      if (tempPayload && tempPayload.role) {
         setIsAuthenticated(true);
         setPayload(tempPayload);
+        setRole(tempPayload.role); // 設置 role
+        isAuthenticatedRef.current = true;
+        roleRef.current = tempPayload.role;
+
 
         localStorage.setItem("authToken", authToken);
         return { success: true, message, role };
@@ -87,6 +124,9 @@ export function AuthProvider({ children }) {
         console.error("JWT 解碼錯誤");
         setIsAuthenticated(false);
         setPayload(null);
+        setRole(""); // 重置 role
+        isAuthenticatedRef.current = false;
+        roleRef.current = "";
         return { success: false, message, role };
       }
     } catch (error) {
@@ -94,6 +134,9 @@ export function AuthProvider({ children }) {
       console.error("JWT 解碼異常:", error);
       setIsAuthenticated(false);
       setPayload(null);
+      setRole(""); // 重置 role
+      isAuthenticatedRef.current = false;
+      roleRef.current = "";
       return { success: false, message, role };
     }
   }
@@ -106,6 +149,10 @@ export function AuthProvider({ children }) {
         currentUser: payload,
         login,
         logout,
+        role: role, // 取得 role
+        isUserChange,
+        setIsUserChange,
+        identified,
       }}
     >
       {children}

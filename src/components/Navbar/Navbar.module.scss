@@ -36,6 +36,23 @@
     cursor: pointer;
 
   }
+
+    .navText {
+      flex-shrink: 0;
+      width: auto;
+      height: auto;
+      position: relative;
+      font-weight: 700;
+      font-family: "Inter", sans-serif;
+      color: #ffffff;
+      font-size: 16px;
+      line-height: 1.5;
+      text-align: left;
+      border: none;
+      margin: 8px 32px;
+  
+    }
+
   .navBtn {
     flex-shrink: 0;
     width: auto;
@@ -79,5 +96,30 @@
     text-align: center;
     cursor: pointer;
   }
+
+    .moreButtons {
+      display: none;
+      flex-direction: column;
+      position: fixed;
+      top: 80px;
+      right: 24px;
+      transform: translateX(-50%);
+      background-color: #111111;
+      border-radius: 0 0 8px 8px;
+      z-index: 2;
+      overflow: hidden;
+      transition: max-height 0.3s ease-in-out;
+  
+      &.show {
+        display: flex;
+        max-height: 300px;
+      }
+  
+      .navBtn {
+        width: 100%;
+        margin: 0;
+        padding: 12px 8px; 
+      }
+    }
 
 }

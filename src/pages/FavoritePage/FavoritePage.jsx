@@ -10,9 +10,29 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getFavoriteCafes } from "../../api/cafe";
 
+import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../../contexts/AuthContext';
+
 export default function BrowsePage() {
   const [cardSlot, setCardSlot] = useState([]);
   const [notFound, setNotFound] = useState(false);
+
+  const navigate = useNavigate();
+  const { isAuthenticated, role, identified } = useAuthContext();
+  //prohibited and redirection
+  useEffect(() => {
+    if (identified) {
+      if (role === "admin") {
+        if (!isAuthenticated) {
+          navigate("/login");
+        } else {
+          navigate("/admin");
+        }
+      } else if (!isAuthenticated) {
+        navigate("/login");
+      }
+    }
+  }, [isAuthenticated, role, navigate, identified]);
 
   //render all cafes
   useEffect(() => {
@@ -86,6 +106,7 @@ export default function BrowsePage() {
         {/* <div className={styles.browseBar}>
           <BrowseBar />
         </div> */}
+        <h1 className={styles.cardWrapperTitle}>My Favorite</h1>
         <div className={styles.cardWrapper}>
           {notFound ? <NotFoundComponent /> : currentPageCards}
         </div>

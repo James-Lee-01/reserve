@@ -304,6 +304,7 @@ const Booking = forwardRef((props, ref) => {
         }).then((result) => {
           if (result.isConfirmed) {
             navigate("/browse/all");
+            window.scrollTo(0, 0);
         }})
         console.log("Reservation Successful:", response);
 

@@ -124,7 +124,7 @@ export default function BrowseBar({onSearch}) {
   const nextWeek = dayjs().add(6, "day");
   const [selectedTime, setSelectedTime] = useState(null);
   const [selectedSeat, setSelectedSeat] = useState(null);
-  const [selectedCity, setSelectedCity] = useState(null);
+  const [selectedCity, setSelectedCity] = useState('');
 
   const [timeSlot, setTimeSlot] = useState([]);
   const [tableSlot, setTableSlot] = useState([]);
@@ -259,6 +259,7 @@ export default function BrowseBar({onSearch}) {
             variant={"standard"}
             citySlot={citySlot}
             onCitySelect={handleCitySelect}
+            value={selectedCity}
           />
           <Button
             text={"Search"}

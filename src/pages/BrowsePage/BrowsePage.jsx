@@ -4,14 +4,33 @@ import BrowseBar from '../../components/BrowseBar/BrowseBar'
 import Card from '../../components/Card/Card'
 import Pagination from '../../components/Pagination/Pagination'
 import Footer from '../../components/Footer/Footer'
-// import SearchBar from '../../components/SearchBar/SearchBar'
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { getAllCafes, postSearch } from "../../api/cafe";
+import { useNavigate } from "react-router-dom";
+import { useAuthContext } from '../../contexts/AuthContext'
+
 
 export default function BrowsePage() {
   const [cardSlot, setCardSlot] = useState([]);
   const [notFound, setNotFound] = useState(false);
+
+  const navigate = useNavigate();
+  const { isAuthenticated, role, identified } = useAuthContext();
+  //prohibited and redirection
+  useEffect(() => {
+    if (identified) {
+      if (role === "admin") {
+        if (!isAuthenticated) {
+          navigate("/login");
+        } else {
+          navigate("/admin");
+        }
+      } else if (!isAuthenticated) {
+        navigate("/login");
+      }
+    }
+  }, [isAuthenticated, role, navigate, identified]);
 
   //render all cafes
   useEffect(() => {
@@ -55,9 +74,6 @@ export default function BrowsePage() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const handlePageChange = (event, value) => {
-    //Signature:function(event: React.ChangeEvent, page: number) => void
-    // event The event source of the callback.
-    // page The page selected.
     setCurrentPage(value);
   };
 

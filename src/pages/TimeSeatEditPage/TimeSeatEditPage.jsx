@@ -298,8 +298,8 @@ export default function TimeSeatEditPage() {
       try {
         const response = await postTable({
           cafeId: id,
-          seat: seat.toString(),
-          count: currentCount.toString(),
+          seat: seat,
+          count: currentCount,
         });
         console.log("postTable API 回傳訊息：", response);
         if (response.status === "success") {
@@ -351,7 +351,7 @@ export default function TimeSeatEditPage() {
       try {
         const response = await putTable({
           id: tableCounts[seat]?.id,
-          count: currentCount.toString(),
+          count: currentCount,
         });
         console.log("putTable API 回傳訊息：", response);
         if (response.status === "success") {

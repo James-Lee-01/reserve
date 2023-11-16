@@ -12,7 +12,7 @@ export default function SelectCity({ variant, citySlot, value, onChange, onCityS
   const [city, setCity] = useState("");
 
   useEffect(() => {
-    // 在座位更改時呼叫 onSeatSelect
+    // 在城市更改時呼叫 onCitySelect
     onCitySelect(city);
   }, [city]);
 
@@ -48,11 +48,10 @@ export default function SelectCity({ variant, citySlot, value, onChange, onCityS
       <Select
         labelId='city-select-label'
         id='city-select'
-        value={city}
-        // value={value}
+        // value={city}
+        value={value}
         label='City'
         autoWidth
-        // onChange={handleChange}
         onChange={handleChange}
       >
         {citySlot.map((citySlot, index) => (
