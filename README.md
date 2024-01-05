@@ -61,3 +61,9 @@
 - React-scripts: v5.0.1
 - Sweetalert2: v11.7.32
 - Swiper: v10.3.1
+
+## 後端合作夥伴
+<div style="display: flex; align-items: center;">
+  <img src="https://avatars.githubusercontent.com/u/31037573?v=4" alt="Boxun Avatar" width="50" style="border-radius: 50%">
+  <span style="margin-left: 10px;"><a href="https://github.com/boxunw">Boxun Wang</a></span>
+</div>
