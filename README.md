@@ -49,7 +49,38 @@
 - 後台管理者可以下架任何一家咖啡廳
 - 後台管理者可以一鍵清除今日之前舊的訂位資料
 
-## 開發工具
+## Setup and Activation - 環境建置與啟用
+1. 請先確認已安裝 Node.js 與 npm。
+2. 開啟終端機(Terminal)進入到存放專案的本機位置，執行以下將專案 clone ： 
+
+    ```
+    git clone https://github.com/James-Lee-01/reserve.git
+    ```
+3. 進入存放此專案的資料夾，開啟之後，透過終端機輸入：
+
+   ```bash
+   npm install
+   ```
+
+4. 安裝完畢後，執行程式：
+    ```
+    npm start
+    ```
+
+5. 打開瀏覽器進入到以下網址：`http://localhost:3000` 執行，出現以下訊息則代表成功執行：
+
+   ```bash
+   webpack compiled successfully
+   ```
+    
+
+6. 若欲暫停使用請執行以下：
+
+   ```bash
+   ctrl + c
+   ```
+
+## Development Tools - 開發工具
 - @fortawesome: v6.4.2
 - @mui/icons-material: v5.14.13
 - @mui/material: v5.14.11
@@ -62,8 +93,9 @@
 - Sweetalert2: v11.7.32
 - Swiper: v10.3.1
 
-## 後端合作夥伴
-<div style="display: flex; align-items: center;">
+## Collaborator - 後端合作夥伴
+
+<kbd style="display: flex; align-items: center;">
   <img src="https://avatars.githubusercontent.com/u/31037573?v=4" alt="Boxun Avatar" width="50" style="border-radius: 50%">
   <span style="margin-left: 10px;"><a href="https://github.com/boxunw">Boxun Wang</a></span>
-</div>
+</kbd>
